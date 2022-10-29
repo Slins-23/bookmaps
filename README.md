@@ -358,17 +358,17 @@ However, weirdly enough, even if this line is removed or commented out, the exte
 ## Notes
 
 - Sometimes, Google updates the Street View location with new coordinates/identifiers, so when you open it from the extension, Google recognizes that it used to be an old URL and updates it to the new one. At this point, the extension does not recognize the new location as having already been bookmarked, since it has different coordinates. What I did to mitigate this was check if the URL has changed, and if that is the case, and the new URL is indeed a redirection from the old URL, the old bookmark gets replaced with the new one. I needed an workaround to get the new panorama ID, as for some reason, Google does not update the panorama ID in the URL, while they do with the coordinates, weirdly enough. There's an anchor element in the page that contains a reference to an URL that uses the correct panorama ID, so that's where I get it from;
-<br>
+
 - Search bar and "Favorites" tab not yet implemented;
-<br>
+
 - Race conditions might occur while on Google Maps/Street View, as the function that keeps track of updates runs `10` times a second. More specifically, if another iteration of the function starts while the other hasn't yet returned, as there's a set time interval for the spawn of a new one. There also nested timed functions inside of ofther timed functions;
-<br>
+
 - The bookmarked location's thumbnail is only available in the extension page if it was bookmarked through Google Street View/360 Degree Pictures. And Google Maps  only if the card that pops-up contains a thumbnail, as we need to query Google's servers for an ID which is supplied only in these occasions;
-<br>
+
 - Adding a bookmark reloads the extension page instead of updating the contents of the page themselves;
-<br>
+
 - When bookmarking a bulk of locations from Street View URLs through the import section in the extension page, you will not be notified of bookmarks that were not added due to errors, they are ignored. I haven't implemented any way of properly logging errors to users, and opening an alert for every error that occurs in a list that may contain dozens or more bookmarks that are either valid or invalid is unfeasible;
-<br>
+
 - The easiest way to remove a bookmark saved from Google Maps is to manually delete it in the extension page, as Google Maps is much more precise with coordinates than Street View (because in Google Maps you can click anywhere, whereas Street View restricts you), so clicking somewhere very close to the bookmarked location will not be enough, it has to be the exact point that you've bookmarked. While in Street View just moving is likely sufficient, as the steps are relatively constant. There are exceptions though, particularly when switching from or to a Street View image that was taken in a different drive (i.e. different months, years). Happens most frequently in crossings.
 
 ## Todo
