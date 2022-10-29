@@ -230,15 +230,10 @@ These are the URLs you will get when bookmarking in Street View:
 `3a,90y,325.23h,87.63t`:
 
 * `3a` - I don't know what this does. It seems to be `3a` regardless of the location in Street View, so I don't touch this.
-<br>
 * `90y` - This is the fov (field of view). In this case, it is set to `90`. Its range is `[15,90]`, where `15` is the most zoom, and `90` the least zoom. Bypassing these limits through the URL parameters defaults the FOV to `75`. This value is stored in the `fov` key.
-<br>
 * `325.23h` - This is the yaw (rotation across the vertical axis, i.e. how rotated to the left/right the image is). In this case it is set to `325.23`. Its range is `[0,360]`. If the value is `0`, this parameter doesn't need to be included in the URL. If the value is outside of the range, it gets reset to what it was before the modification. This is the value stored in the `yaw` key.
-<br>
 * `87.63t` - This is the pitch (rotation in a front-to-back manner, i.e. how rotated up/down the image is). In this case it is set to `87.63`. Its range is `[1,179]`, where `1` is aiming at floor, and `179` aiming at the sky. Like yaw, if the value is outside of the range, it gets reset to what it was before the modification. This is the value stored in the `street_pitch` key.
-<br>
 * `!3m6!1e1!3m4!1s`, `!2e0!7i16384!8i8192` - These are, respectively, added before and after the Street View ID. These are probably related to flags set by the Google Maps API whenever a response is received. I don't know exactly what they do. They are respectively stored in the keys `before_id`, `after_id`.
-<br>
 * `aJNKCShn4mJGvIBXGWGA8A` - This is the ID of the given Street View location. It goes in between the encoded delimiters above. Seemingly, each Street View has its own ID, and they're very different from each other, so I assume this is hashed and has no correlation with the location itself. This always has to be included in the URL of the location, alongside the latitude/longitude coordinates. It's always made up of 22 characters. This is stored in the `id` key.
 
 `90y` in Street View is equivalent to `thumbfov=90` in the thumbnail.
