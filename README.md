@@ -57,29 +57,23 @@ This API is what allows the extension to separate bookmarks based on their geogr
 
 A free account gives you a quota of 2500 calls per day (as of 10/29/2022), which should be more than enough for the average user. Everytime a bookmark gets added directly through Google Maps/Street View or from their URLs/coordinates in the extension page, a call is made to the API. Calls are made in the "get_bookmark" function at the "dist/scripts/background/main.js" file. Importing bookmarks from JSON data in the format that the extension exports (more at the "Export" section) does not make calls to the API, as the bookmarks are already set up, thus not needing an API key setup if that's all you need. You can sign up for a free account at https://opencagedata.com.
 
-[img] extensionapisignup_before0
-
-[img] extensionapisignup_before1
+![extensionapisignup_before0](https://user-images.githubusercontent.com/35003248/198834774-b8beb204-c1db-47a1-a648-9f5cac2613f2.png)
+![extensionapisignup_before1](https://user-images.githubusercontent.com/35003248/198834776-837663f1-0021-45ab-8fa4-2a0b3223fdff.png)
 
 After creating your account, your API key may now be available at https://opencagedata.com/dashboard#geocoding. If it isn't, in the "Geocoding API" tab, click the "Create another API key" button to generate an API key for you.
 
-[img] extensionapisignup_after1
-
-[img] extensionapisignup_after2
+![extensionapisignup_after1](https://user-images.githubusercontent.com/35003248/198834785-8c843ff4-2e6e-4084-8e44-6b3c71d128ad.png)
+![extensionapisignup_after2](https://user-images.githubusercontent.com/35003248/198834789-c1f72bae-ffe4-428e-88c5-f5c57cc2b73d.png)
 
 Now that you have your API key, you need to update it in the extension page. Click the extension icon in the browser, then after the page loads up, open the settings (click the cog icon in the top-right corner).
 
-[img] extensionsettings_before
+![extensionsettings_before](https://user-images.githubusercontent.com/35003248/198834795-252a38b0-8b7a-470a-9a9d-614e8f982216.png)
 
 Then, all you have to do is paste the API key in the textbox and click the "Update" button. If your key is not valid (i.e. wrong key, blacklisted, api server is unreachable), you will be warned and the extension won't update it.
 
-[img] extensionsettings_after
+![extensionsettings_after](https://user-images.githubusercontent.com/35003248/198834808-15592811-8445-470d-9469-c50546c47c77.png)
 
 ## How to use the extension
-
-***Sorry for the awful quality, cut-offs, and sped up video. Github allows free users to upload files of only up to 10MB. I have spent a whole lot of hours on trying to keep it below 10MBs (original recording was 128MB, 10 minutes long, so you can imagine) - while learning video editing at the same time - and was able to get this file to 9.967MB like this.*** I know you can barely read many things, but this video is meant to demonstrate how the extension works, so although it's hard to read, it serves its purpose as you can get the gist of it. Also, everything is explained in detail here, anyway. I didn't try to split up the file in multiple parts, and since the video is already heavily edited, I won't bother doing it all over again.
-
-[center] ## Video example [/center]
 
 This extension allows you to "bookmark" street locations from Google Maps (cannot bookmark places that are not street/empty land coordinates, i.e. cities themselves, hotels, hospitals, landmarks, neighbourhoods, etc.) and Google Street View, which are then stored in the extension page (which you can get to by clicking the extension in the add-on bar) as cards  in hierarchical format (starting from continents up to streets; each card click goes deeper into the hierarchy). The parsing and storage of the bookmarks is done with JSON.
 
@@ -87,7 +81,7 @@ This extension allows you to "bookmark" street locations from Google Maps (canno
 
 In order to bookmark a location in Google Maps, you have to click somewhere that is not a building or the name of a location. Basically you have to either click in an empty space or in a street, and be careful not to click on a building instead, because this won't work. If you've correctly clicked a bookmarkable location, a card will pop up in the center-bottom of the screen with a faded star icon. If you click that star, the location will then be bookmarked. If the star is not faded, this means that the selected location is already bookmarked, and you can remove it by clicking on the star once again.
 
-[img] googlemaps_example
+![googlemaps_example](https://user-images.githubusercontent.com/35003248/198834825-34fe039e-87f8-4d45-9404-8a6c0c85dc70.png)
 
 Clicking on any of the names on display would not work, and the marker would turn red. Be careful not to click on buildings, as it has the same behavior.
 
@@ -95,59 +89,57 @@ Clicking on any of the names on display would not work, and the marker would tur
 
 To bookmark a location in Google Street View, all you will have to do is simply click the faded star, just like in Google Maps, it has the same behavior. Except that the star icon is at the top-left corner of the screen alongside Google's card with information about the location, instead of at the center-bottom. If the extension is working as intended, the star should always be there.
 
-[img] streetview_example
+![streetview_example](https://user-images.githubusercontent.com/35003248/198834830-6a42c1d5-0e76-4675-b83c-ff013e9fb203.png)
 
 ### Extension page
 
-[img] extensionpage
+![extensionpage](https://user-images.githubusercontent.com/35003248/198834837-1b489e62-82cb-4d4a-9e96-26a86f0f4537.png)
 
 ### Resetting filters
 
 As searching has not yet been implemented, you can only go back and forth. By clicking in a card and increasing a level, and by clicking the left arrow in the top-left corner and decreasing a level. You can click the home button to go straight to the top.
 
-[img] extensionmoving
+![extensionmoving](https://user-images.githubusercontent.com/35003248/198834842-d5b7c6fe-0804-4764-ba39-f70a41a1248e.png)
 
 ### Bookmarking in the extension page
 
 You can bookmark a location from its Google Maps/Street View URL or its coordinates, by clicking the bookmark button.
 
-[img] extensionbookmark_pre
+![extensionbookmark_pre](https://user-images.githubusercontent.com/35003248/198834846-f9f41a7d-2d1d-4ed9-b911-6b319730efad.png)
 
 In the modal that opened up, you can input the Google Maps/Street View URL or its coordinates, then click "ADD" to bookmark it. If trying to add by coordinates, you have to input the latitude and longitude, respectively, separated by a comma or whitespace.
 
-[img] extensionbookmark_after
+![extensionbookmark_after](https://user-images.githubusercontent.com/35003248/198834853-0ce474d4-1dfe-435c-8dda-f7ac7da1f695.png)
 
 ### Removing bookmarks in the extension page
 
 You can remove a specific bookmark or all child bookmarks (bookmarks inside a given location) by hovering over the card and clicking the "X" icon in the top-right corner. If the card clicked has children, a prompt will pop up asking whether you want to proceed while showing you how many bookmarks will be removed.
 
-[img] extensiondelete_pre
-
-[img] extensiondelete_after
+![extensiondelete_pre](https://user-images.githubusercontent.com/35003248/198834863-b1490dd2-0447-4ac5-a1b5-64f83f8537a1.png)
+![extensiondelete_after](https://user-images.githubusercontent.com/35003248/198834870-76ce0a83-6b07-4dd5-a558-d50e18105bfd.png)
 
 ### Exporting
 
 You can export the bookmarks to a JSON file, by clicking the icon with an arrow down.
 
-[img] extensionexport_before
+![extensionexport_pre](https://user-images.githubusercontent.com/35003248/198834879-7ccd6a45-1d74-4f3f-a2f7-9dd9bf55157e.png)
 
 It opens up a modal where you can either download the JSON formatted file containing the bookmarks or copy/read the text itself.
 
-[img] extensionexport_after
+![extensionexport_after](https://user-images.githubusercontent.com/35003248/198834885-a3a8ad73-fc5c-4e14-99e2-32b0f1d95fc0.png)
 
 ### Importing
 
 You can import (optionally replace) bookmarks, by clicking the paper icon with an addition sign.
 
-[img] extensionimport_pre
-
-[img] extensionimport_after1
+![extensionimport_pre](https://user-images.githubusercontent.com/35003248/198834891-8d40c21b-7546-49eb-87c1-066fd0433b55.png)
+![extensionimport_after1](https://user-images.githubusercontent.com/35003248/198834897-3c39f385-abe5-4552-ba6d-84ebf0d7b156.png)
 
 It opens up a modal that allows you to import however many bookmarks you want, both in JSON format (as exported by the extension) or as URLs separated by newlines. You can also optionally replace the preexisting bookmarks by checking the "Replace All" box.
 
 The data to be imported in the picture above uses the format that the extension exports, therefore it already includes the bookmarks with their respective details, so no calls to the API are necessary, and thereby you don't need an API key to import bookmarks like this.
 
-[img] extensionimport_after2
+![extensionimport_after2](https://user-images.githubusercontent.com/35003248/198834903-ea6dd6cc-4eb2-487c-b72c-0b2da3b2a949.png)
 
 In this case, you're bookmarking the URLs from scratch as if you were going through them one by one, which clearly doesn't contain any extra information, and as such, calls to the API have to be made and you need a valid API key set in this case. Unlike in the example above.
 
@@ -318,7 +310,7 @@ I have harcoded this zoom value, but Google Maps' range for zoom is [3,21] where
 
 A Google Maps bookmark will only contain a thumbnail if you've bookmarked it from a road in Google Maps which contains a valid thumbnail in the card that pops up.
 
-[img] extensionthumbnail
+![extensionthumbnail](https://user-images.githubusercontent.com/35003248/198834927-0db26e14-a5ee-4165-ac3a-a33934ff2cb7.png)
 
 If this is the case, the details about the thumbnail API are the exact same as the Street View above, since they use the same server.
 
