@@ -245,10 +245,10 @@ These are the URLs you will get when bookmarking in Street View:
 
 `325.23h` in Street View is equivalent to `yaw=325.23` in the thumbnail
 
-"87.63t" in Street View is equivalent to "pitch=2.39662921348" in the thumbnail.
-Note, however, that they have different ranges. [1,179] on Street View and [90,-90] for the thumbnail. As such, we need to normalize it. This is the linear equation I came up with to translate the Street View pitch into the thumbnail's: ```(180/-178 * pitch) + (180/178) + 90```. It can be simplified, but it is more readable this way. Basically, this function (roughly) maps the range [1,179] to [90,-90] while taking some caveats into account). This is the value stored in the "thumbnail_pitch" key.
+`87.63t` in Street View is equivalent to `pitch=2.39662921348` in the thumbnail.
+Note, however, that they have different ranges. [1,179] on Street View and [90,-90] for the thumbnail. As such, we need to normalize it. This is the linear equation I came up with to translate the Street View pitch into the thumbnail's: ```(180/-178 * pitch) + (180/178) + 90```. It can be simplified, but it is more readable this way. Basically, this function (roughly) maps the range [1,179] to [90,-90] while taking some caveats into account. This value is stored in the "thumbnail_pitch" key.
 
-The parameters are inserted (in Javascript) as such: `https://www.google.com/maps/@${bookmark.streetview.google.coordinate_degrees},3a,${bookmark.streetview.google.fov}y,${bookmark.streetview.google.yaw}h,${bookmark.streetview.google.pitch}t/data=${bookmark.streetview.google.before_id}${bookmark.streetview.google.id}${bookmark.streetview.google.after_id}`.
+The parameters are inserted as such: `https://www.google.com/maps/@` + `${bookmark.streetview.google.coordinate_degrees}` + `,3a,` + `${bookmark.streetview.google.fov}` + `y,` + `${bookmark.streetview.google.yaw}` + `h,` + `${bookmark.streetview.google.pitch}` + `t/data=` + `${bookmark.streetview.google.before_id}` + `${bookmark.streetview.google.id}` + `${bookmark.streetview.google.after_id}`.
 
 #### Thumbnail
 
@@ -256,26 +256,26 @@ https://streetviewpixels-pa.googleapis.com/v1/thumbnail?panoid=aJNKCShn4mJGvIBXG
 
 This is the URL of the image used as the background of this example bookmark in the extension page, as a thumbnail.
 
-* panoid - ID of the panoramic image of the given Google Maps/Street View bookmark. In this case it is "aJNKCShn4mJGvIBXGWGA8A". This value is retrieved from the "id" key.
+`panoid` - ID of the panoramic image of the given Google Maps/Street View bookmark. In this case it is `aJNKCShn4mJGvIBXGWGA8A`. This value is retrieved from the `id` key.
 
-* w - Width of the resulting thumbnail. In this case it is 150. It doesn't need to be proportional to the height. The maximum value is 1024px. This will always be 150, as I have hardcoded this.
+`w` - Width of the resulting thumbnail. In this case it is `150`. It doesn't need to be proportional to the height. The maximum value is `1024px`. This will always be `150`, as I have hardcoded this.
 
-* h - Height of the resulting thumbnail. In this case it is 150. It doesn't need to be proportional to the width. The maximum value is 576px. This will always be 150, as I have hardcoded this.
+`h` - Height of the resulting thumbnail. In this case it is `150`. It doesn't need to be proportional to the width. The maximum value is `576px`. This will always be `150`, as I have hardcoded this.
 
-* yaw - Amount of rotation across the vertical axis, i.e. how rotated to the left/right the image is. One full rotation has range [0,360]. There's no restriction, however. Negative values are also allowed. In this case, it is 325.23.  This value is retrieved from the "yaw" key.
+`yaw` - Amount of rotation across the vertical axis, i.e. how rotated to the left/right the image is. One full rotation has range `[0,360]`. There's no restriction, however. Negative values are also allowed. In this case, it is `325.23`.  This value is retrieved from the `yaw` key.
 
-* pitch - Amount of rotation in a front-to-back manner, i.e. how rotated up/down the image is.  One full rotation has range [90,-90], where 90 aims at the floor and -90 at the sky. There's no restriction, however. In this case, it is 2.39662921348. This value is retrieved from the "thumbnail_pitch" key, which undergoes a linear transformation in order to be mapped from [1,179] to [90,-90].
+`pitch` - Amount of rotation in a front-to-back manner, i.e. how rotated up/down the image is.  One full rotation has range `[90,-90]`, where `90` aims at the floor and `-90` at the sky. There's no restriction, however. In this case, it is `2.39662921348`. This value is retrieved from the `thumbnail_pitch` key, which undergoes a linear transformation in order to be mapped from [1,179] to [90,-90].
 
-* thumbfov - FOV of the resulting thumbnail. In this case it is 90. The allowed range in Street View is [15,90], however, the restriction here is [0,175]. Where 0 is the most zoom and 175 is the least zoom. This value is retrieved from the "fov" key.
+`thumbfov` - Fov (field of view) of the resulting thumbnail. In this case it is `90`. The allowed range in Street View is `[15,90]`, however, the restriction here is `[0,175]`. Where `0` is the most zoom and `175` is the least zoom. This value is retrieved from the `fov` key.
 
 ### 360 degree picture bookmark
 
-This is actually not in the example bookmark above. The bookmark above is from a Street View url, not a 360 degree picture. 
+This is actually not in the example bookmark above. The bookmark above is from a Street View URL, not a 360 degree picture. 
 
 However, the same principles apply here. They're not that different. The URL of a 360 degree picture is very similar to the URL of an average Street View location, the most relevant difference is the length of the panorama's ID. For Street View, the length is 22 characters, whereas for 360 degree pictures it's 44 characters.
 
-Here's an example ID of an image in Belarus: "AF1QipN_GdGo8lqN-gDVG3cpJdNLDRGHawOqfMfOprMi"
-This one in Rio: "AF1QipOVIfdCT-QdUhyFNZP_Z9hrDbPCBSUpZQdbxxIE"
+Here's an example ID of an image in Belarus: `AF1QipN_GdGo8lqN-gDVG3cpJdNLDRGHawOqfMfOprMi`
+This one in Rio: `AF1QipOVIfdCT-QdUhyFNZP_Z9hrDbPCBSUpZQdbxxIE`
 
 If you pay attention, you will notice that the first 4 characters are the same. This seems to always be the case, meanwhile the rest of the ID remains ever changing. I don't know what this is for.
 
@@ -287,24 +287,25 @@ The other difference is that the server where we get the thumbnail is not the sa
 
 This is the URL of the image used in the background of a bookmark's card in the extension page, as a thumbnail. Here, inputing invalid parameters, unlike the Street View thumbnails, gives you a bad request.
 
-As you can see below, you are allowed to manually request images of up to 16383x16383 pixels, which are HUGE, and might unnecessarily overload their servers (something an attacker can eventually pry on), as ideally only Google servers and people with a private API key should be allowed to call these to such an extent. That's what I assume at least, given Google charges for access to their APIs, including Google Maps. Therefore, Google maybe should take a second look at this from a security standpoint, then ideally standardize and sanitize their input in regards to these APIs and/or decrease the limit of the allowed dimensions of the requested image from any call that doesn't come from Google themselves or has an API key.
+As you can see below, you are allowed to manually request images of up to `16383x16383` pixels, which are huge, and might unnecessarily overload their servers (something an attacker can eventually pry on), as ideally only Google servers and people with a private API key should be allowed to call these to such an extent. That's what I assume at least, given Google charges for access to their APIs, including Google Maps. Therefore, Google maybe should take a second look at this from a security standpoint, then ideally standardize and sanitize their input in regards to these APIs, and/or decrease the limit of the allowed dimensions of the requested image from any call that doesn't come from Google themselves or has from someone who has a private API key.
 
-* The id of the panoramic image in the given picture starts after /p/ and ends before the equal sign. In this case it is "AF1QipMowgvmpvd6Qu2IJT566SkOGSKq6eSIC6E5CjBj".
+The id of the panoramic image in the given picture starts after `/p/` and ends before the equal sign. In this case it is `AF1QipMowgvmpvd6Qu2IJT566SkOGSKq6eSIC6E5CjBj`.
 
-* w - Width of the resulting thumbnail. In this case it is 150. It doesn't need to be proportional to the height. The maximum value is 16383px.
+`w` - Width of the resulting thumbnail. In this case it is `150`. It doesn't need to be proportional to the height. The maximum value is `16383px`.
 
-* h - Height of the resulting thumbnail. In this case it is 150. It doesn't need to be proportional to the width. The maximum value is also 16383px.
+`h` - Height of the resulting thumbnail. In this case it is `150`. It doesn't need to be proportional to the width. The maximum value is also `16383px`.
 
-* pi - The pitch. Amount of rotation in a front-to-back manner, i.e. how rotated up/down the image is.  One full rotation has range [90,-90], where 90 aims at the floor and -90 at the sky. In this case it is -0.
+`pi` - The pitch. Amount of rotation in a front-to-back manner, i.e. how rotated up/down the image is.  One full rotation has range `[90,-90]`, where `90` aims at the floor and `-90` at the sky. In this case it is `-0`.
 
-* ya - The yaw. Amount of rotation across the vertical axis, i.e. how rotated to the left/right the image is. One full rotation has range [0,360]. In this case it is 55.
+`ya` - The yaw. Amount of rotation across the vertical axis, i.e. how rotated to the left/right the image is. One full rotation has range `[0,360]`. In this case it is `55`.
 
-* fo - The fov. In this case it is 100. The allowed range here is [5,175]. Where 5 is most zoom and 175 is least zoom.
+`fo` - The fov (field of view). In this case it is `100`. The allowed range here is `[5,175]`. Where `5` is the most zoom and `175` is least zoom.
 
 ### Google Maps bookmark
 
-If the bookmarked example above were a Google Maps bookmark, the URL that opens up would be "https://www.google.com/maps/@-29.6974533,-53.7930744,19z". This opens up Google Maps centered at the given coordinates (which pertain to the respective bookmark) at zoom level 19.
-I have harcoded this zoom value, but Google Maps' range for zoom is [3,21] where 3 is the least zoom and 21 is the most zoom, and it refers to the "19z" in the URL, where the letter 'z' intuitively stands for zoom.
+If the bookmarked example above were a Google Maps bookmark, the URL that opens up will be https://www.google.com/maps/@-29.6974533,-53.7930744,19z. This opens up Google Maps centered at the given coordinates (which pertain to the respective bookmark) at zoom level `19`.
+
+I have harcoded this zoom value, but Google Maps' range for zoom is `[3,21]` where `3` is the least zoom and `21` is the most zoom, and it refers to the `19z` in the URL, where the letter `z` intuitively stands for zoom.
 
 #### Thumbnail
 
