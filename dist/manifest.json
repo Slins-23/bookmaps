@@ -1,0 +1,49 @@
+{
+    "manifest_version": 2,
+    "name": "Bookmaps",
+    "version": "1.0",
+    "description": "Bookmark google maps street view locations",
+    "author": "Alexsander Bispo <slins312@gmail.com>",
+    "homepage_url": "https://github.com/slins-23/",
+	"incognito": "spanning",
+	"browser_specific_settings": {
+		"gecko": {
+		  "id": "slins312@gmail.com"
+		}
+	},
+    "options_ui": {
+        "page": "index.html",
+        "open_in_tab": true
+    },
+    "icons": {
+      "48": "assets/icons/icon-48.png"
+    },
+
+    "permissions": [
+        "activeTab",
+        "tabs",
+        "unlimitedStorage",
+        "storage",
+        "https://api.opencagedata.com/geocode/v1/"
+    ],
+    "background": {
+        "scripts": ["scripts/background/main.js"],
+        "persistent": true
+    },
+
+    "content_scripts": [
+        {
+            "matches": ["*://*.google.com/maps*"],
+            "js": ["scripts/content/main.js"]
+        }
+    ],
+
+    "browser_action": {
+        "default_icon": "assets/icons/icon-48.png",
+        "default_popup": "webpage/popup.html"
+    },
+
+    "web_accessible_resources": [
+        "assets/*"
+    ]
+}
