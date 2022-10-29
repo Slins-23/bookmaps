@@ -32,7 +32,7 @@
 
 This extension uses the geolocation API at https://opencagedata.com to save bookmarks. You don't need it if you just want to import bookmarks saved from a JSON file. They have a free account quota available (2500 calls/day as of 10/29/2022). More details below in the section `Setting up the API`.
 
-The extension works only on Firefox Nightly and Developer esditions, because you will need to set the flag `xpinstall.signatures.required` from `true` to `false`, and this setting only works in these variants. The extension doesn't work on Chrome, even though it theoretically should. More on why at the end of the "How the extension behaves" section.
+The extension works only on Firefox Nightly and Developer esditions, because you will need to set the flag `xpinstall.signatures.required` from `true` to `false`, and this setting only works in these variants. The extension doesn't work on Chrome, even though it theoretically should. More on why at the end of the `How the extension behaves` section.
 
 ## About
 * If you don't care about how or why I made this extension, and just want to get it setup and ready to use or read technical details, skip this section.
@@ -53,14 +53,14 @@ Also, Google hasn't yet broken anything, which will eventually happen in the fut
 
 This API is what allows the extension to separate bookmarks based on their geographic details, which is what it provides given the latitude and longitude as parameters.
 
-***You can still use the extension without an API key. However, you won't be able to bookmark things yourself. You will need to import bookmarks from other people or ones that you've exported yourself.*** This is the only limitation if you don't have a valid API key set. More about exporting is explained in the "Exporting" section below.
+***You can still use the extension without an API key. However, you won't be able to bookmark things yourself. You will need to import bookmarks from other people or ones that you've exported yourself.*** This is the only limitation if you don't have a valid API key set. More about exporting is explained in the `Exporting` section below.
 
-A free account gives you a quota of 2500 calls per day (as of 10/29/2022), which should be more than enough for the average user. Everytime a bookmark gets added directly through Google Maps/Street View or from their URLs/coordinates in the extension page, a call is made to the API. Calls are made in the "get_bookmark" function at the "dist/scripts/background/main.js" file. Importing bookmarks from JSON data in the format that the extension exports (more at the "Export" section) does not make calls to the API, as the bookmarks are already set up, thus not needing an API key setup if that's all you need. You can sign up for a free account at https://opencagedata.com.
+A free account gives you a quota of `2500` calls per day (as of 10/29/2022), which should be more than enough for the average user. Everytime a bookmark gets added directly through Google Maps/Street View or from their URLs/coordinates in the extension page, a call is made to the API. Calls are made in the `get_bookmark` function in the `dist/scripts/background/main.js` file. Importing bookmarks from JSON data in the format that the extension exports (more at the `Export` section) does not make calls to the API, as the bookmarks are already set up, thus not needing an API key setup if that's all you need. You can sign up for a free account at https://opencagedata.com.
 
 ![extensionapisignup_before0](https://user-images.githubusercontent.com/35003248/198834774-b8beb204-c1db-47a1-a648-9f5cac2613f2.png)
 ![extensionapisignup_before1](https://user-images.githubusercontent.com/35003248/198834776-837663f1-0021-45ab-8fa4-2a0b3223fdff.png)
 
-After creating your account, your API key may now be available at https://opencagedata.com/dashboard#geocoding. If it isn't, in the "Geocoding API" tab, click the "Create another API key" button to generate an API key for you.
+After creating your account, your API key may now be available at https://opencagedata.com/dashboard#geocoding. If it isn't, in the `Geocoding API` tab, click the `Create another API key` button to generate an API key for you.
 
 ![extensionapisignup_after1](https://user-images.githubusercontent.com/35003248/198834785-8c843ff4-2e6e-4084-8e44-6b3c71d128ad.png)
 ![extensionapisignup_after2](https://user-images.githubusercontent.com/35003248/198834789-c1f72bae-ffe4-428e-88c5-f5c57cc2b73d.png)
@@ -69,7 +69,7 @@ Now that you have your API key, you need to update it in the extension page. Cli
 
 ![extensionsettings_before](https://user-images.githubusercontent.com/35003248/198834795-252a38b0-8b7a-470a-9a9d-614e8f982216.png)
 
-Then, all you have to do is paste the API key in the textbox and click the "Update" button. If your key is not valid (i.e. wrong key, blacklisted, api server is unreachable), you will be warned and the extension won't update it.
+Then, all you have to do is paste the API key in the textbox and click the `Update` button. If your key is not valid (i.e. wrong key, blacklisted, api server is unreachable), you will be warned and the extension won't update it.
 
 ![extensionsettings_after](https://user-images.githubusercontent.com/35003248/198834808-15592811-8445-470d-9469-c50546c47c77.png)
 
@@ -107,7 +107,7 @@ You can bookmark a location from its Google Maps/Street View URL or its coordina
 
 ![extensionbookmark_pre](https://user-images.githubusercontent.com/35003248/198834846-f9f41a7d-2d1d-4ed9-b911-6b319730efad.png)
 
-In the modal that opened up, you can input the Google Maps/Street View URL or its coordinates, then click "ADD" to bookmark it. If trying to add by coordinates, you have to input the latitude and longitude, respectively, separated by a comma or whitespace.
+In the modal that opened up, you can input the Google Maps/Street View URL or its coordinates, then click `ADD` to bookmark it. If trying to add by coordinates, you have to input the latitude and longitude, respectively, separated by a comma or whitespace.
 
 ![extensionbookmark_after](https://user-images.githubusercontent.com/35003248/198834853-0ce474d4-1dfe-435c-8dda-f7ac7da1f695.png)
 
@@ -135,7 +135,7 @@ You can import (optionally replace) bookmarks, by clicking the paper icon with a
 ![extensionimport_pre](https://user-images.githubusercontent.com/35003248/198834891-8d40c21b-7546-49eb-87c1-066fd0433b55.png)
 ![extensionimport_after1](https://user-images.githubusercontent.com/35003248/198834897-3c39f385-abe5-4552-ba6d-84ebf0d7b156.png)
 
-It opens up a modal that allows you to import however many bookmarks you want, both in JSON format (as exported by the extension) or as URLs separated by newlines. You can also optionally replace the preexisting bookmarks by checking the "Replace All" box.
+It opens up a modal that allows you to import however many bookmarks you want, both in JSON format (as exported by the extension) or as URLs separated by newlines. You can also optionally replace the preexisting bookmarks by checking the `Replace All` box.
 
 The data to be imported in the picture above uses the format that the extension exports, therefore it already includes the bookmarks with their respective details, so no calls to the API are necessary, and thereby you don't need an API key to import bookmarks like this.
 
@@ -144,7 +144,7 @@ The data to be imported in the picture above uses the format that the extension 
 In this case, you're bookmarking the URLs from scratch as if you were going through them one by one, which clearly doesn't contain any extra information, and as such, calls to the API have to be made and you need a valid API key set in this case. Unlike in the example above.
 
 ## How bookmarks and their Google Maps/Street View data are formatted and stored in JSON
-***You can find an example JSON export with ~558 bookmarks in the "bookmarks_example.json" file. All you have to do is import it.*** The thumbnail pitch is slightly wrong in this example, but the cause for that has already been fixed.
+***You can find an example JSON export with ~558 bookmarks in the `bookmarks_example.json` file. All you have to do is import it.*** The thumbnail pitch is slightly wrong in this example file, but the cause for that has already been fixed.
 
 Calls to the API are made in the following format: `https://api.opencagedata.com/geocode/v1/json?q=LAT+LNG&key=YOUR-API-KEY`. Where `LAT` is the latitude coordinate, `LNG` is the longitude coordinate and `YOUR-API-KEY` is, well, self-explanatory.
 
@@ -203,11 +203,11 @@ The following JSON data is an example of how the bookmarks are saved in the exte
     }
 }]
 ```
-Keys that contain geographical information about the location itself are pulled from the Opencagedata API (which returns information from parameterized coordinates), while data pertaining to Google Maps/Street View is decoded by the extension from their URLs. In this example there is a single bookmark, which starts and ends at the first and last curly brackets, respectively. All bookmarks are stored inside this array. All keys, except the "streetview" key, are retrieved from the Opencagedata API.
+Keys that contain geographical information about the location itself are pulled from the Opencagedata API (which returns information from parameterized coordinates), while data pertaining to Google Maps/Street View is decoded by the extension from their URLs. In this example there is a single bookmark, which starts and ends at the first and last curly brackets, respectively. All bookmarks are stored inside this array. All keys, except the `streetview` key, are retrieved from the Opencagedata API.
 
-Explanation of the "streetview" key:
+Explanation of the `streetview` key:
 
-"google" - The category of the Street View. In this case, its used only for bookmarks from Google services (i.e. Google Maps/Street View/360 degree Pictures). Currently only Google is supported, so this will always be the case, however, in the future there could be other services supported, and this key would be replaced with the given service (i.e. Naver maps (South Korea), Baidu maps (China), Yandex maps (Eastern Europe/Middle east), etc.).
+`google` - The category of the Street View. In this case, its used only for bookmarks from Google services (i.e. Google Maps/Street View/360 degree Pictures). Currently only Google is supported, so this will always be the case, however, in the future there could be other services supported, and this key would be replaced with the given service (i.e. Naver maps (South Korea), Baidu maps (China), Yandex maps (Eastern Europe/Middle east), etc.).
 
 In order to better understand the keys for Google, and how they encode the URLs, here is some explanation of how the URLs (Street View and thumbnail) were constructed from this JSON example: 
 
@@ -229,26 +229,40 @@ These are the URLs you will get when bookmarking in Street View:
 <br>
 `3a,90y,325.23h,87.63t`:
 
-* `3a` - I don't know what this does. It seems to be "3a" regardless of the location in Street View, so I don't touch this.
+* `3a` - I don't know what this does. It seems to be `3a` regardless of the location in Street View, so I don't touch this.
 <br>
-* `90y` - This is the fov (field of view). In this case, it is set to 90. Its range is [15,90], where 15 is the most zoom, and 90 the least zoom. Bypassing these limits through the URL parameters defaults the FOV to 75. This value is stored in the "fov" key.
+* `90y` - This is the fov (field of view). In this case, it is set to `90`. Its range is `[15,90]`, where `15` is the most zoom, and `90` the least zoom. Bypassing these limits through the URL parameters defaults the FOV to `75`. This value is stored in the `fov` key.
 <br>
-* `325.23h` - This is the yaw (rotation across the vertical axis, i.e. how rotated to the left/right the image is). In this case it is set to 325.23. Its range is [0,360]. If the value is 0, this parameter doesn't need to be included in the URL. If the value is outside of the range, it gets reset to what it was before the modification. This is the value stored in the "yaw" key.
+* `325.23h` - This is the yaw (rotation across the vertical axis, i.e. how rotated to the left/right the image is). In this case it is set to `325.23`. Its range is `[0,360]`. If the value is `0`, this parameter doesn't need to be included in the URL. If the value is outside of the range, it gets reset to what it was before the modification. This is the value stored in the `yaw` key.
 <br>
-* `87.63t` - This is the pitch (rotation in a front-to-back manner, i.e. how rotated up/down the image is). In this case it is set to 87.63. Its range is [1,179], where 1 is aiming at floor, and 179 aiming at the sky. Like yaw, if the value is outside of the range, it gets reset to what it was before the modification. This is the value stored in the "street_pitch" key.
+* `87.63t` - This is the pitch (rotation in a front-to-back manner, i.e. how rotated up/down the image is). In this case it is set to `87.63`. Its range is `[1,179]`, where `1` is aiming at floor, and `179` aiming at the sky. Like yaw, if the value is outside of the range, it gets reset to what it was before the modification. This is the value stored in the `street_pitch` key.
 <br>
-* `!3m6!1e1!3m4!1s`, `!2e0!7i16384!8i8192` - These are, respectively, added before and after the Street View ID. These are probably related to flags set by the Google Maps API whenever a response is received. I don't know exactly what they do. They are respectively stored in the keys "before_id", "after_id".
+* `!3m6!1e1!3m4!1s`, `!2e0!7i16384!8i8192` - These are, respectively, added before and after the Street View ID. These are probably related to flags set by the Google Maps API whenever a response is received. I don't know exactly what they do. They are respectively stored in the keys `before_id`, `after_id`.
 <br>
-* `aJNKCShn4mJGvIBXGWGA8A` - This is the ID of the given Street View location. It goes in between the encoded delimiters above. Seemingly, each Street View has its own ID, and they're very different from each other, so I assume this is hashed and has no correlation with the location itself. This always has to be included in the URL of the location, alongside the latitude/longitude coordinates. It's always made up of 22 characters. This is stored in the "id" key.
+* `aJNKCShn4mJGvIBXGWGA8A` - This is the ID of the given Street View location. It goes in between the encoded delimiters above. Seemingly, each Street View has its own ID, and they're very different from each other, so I assume this is hashed and has no correlation with the location itself. This always has to be included in the URL of the location, alongside the latitude/longitude coordinates. It's always made up of 22 characters. This is stored in the `id` key.
 
-`90y` in Street View is equivalent to `thumbfov=90` in the thumbnail
+`90y` in Street View is equivalent to `thumbfov=90` in the thumbnail.
 
-`325.23h` in Street View is equivalent to `yaw=325.23` in the thumbnail
+`325.23h` in Street View is equivalent to `yaw=325.23` in the thumbnail.
 
 `87.63t` in Street View is equivalent to `pitch=2.39662921348` in the thumbnail.
-Note, however, that they have different ranges. [1,179] on Street View and [90,-90] for the thumbnail. As such, we need to normalize it. This is the linear equation I came up with to translate the Street View pitch into the thumbnail's: ```(180/-178 * pitch) + (180/178) + 90```. It can be simplified, but it is more readable this way. Basically, this function (roughly) maps the range [1,179] to [90,-90] while taking some caveats into account. This value is stored in the "thumbnail_pitch" key.
 
-The parameters are inserted as such: `https://www.google.com/maps/@` + `${bookmark.streetview.google.coordinate_degrees}` + `,3a,` + `${bookmark.streetview.google.fov}` + `y,` + `${bookmark.streetview.google.yaw}` + `h,` + `${bookmark.streetview.google.pitch}` + `t/data=` + `${bookmark.streetview.google.before_id}` + `${bookmark.streetview.google.id}` + `${bookmark.streetview.google.after_id}`.
+Note, however, that they have different ranges. `[1,179]` on Street View and `[90,-90]` for the thumbnail. As such, we need to normalize it. This is the linear equation I came up with to translate the Street View pitch into the thumbnail's: `(180/-178 * pitch) + (180/178) + 90`. It can be simplified, but it is more readable this way. Basically, this function (roughly) maps the range `[1,179]` to `[90,-90]` while taking some caveats into account. This value is stored in the `thumbnail_pitch` key.
+
+The parameters are inserted as such: 
+
+`https://www.google.com/maps/@` + 
+`${bookmark.streetview.google.coordinate_degrees}` +
+`,3a,` +
+`${bookmark.streetview.google.fov}` +
+`y,` +
+`${bookmark.streetview.google.yaw}` +
+`h,` +
+`${bookmark.streetview.google.pitch}` +
+`t/data=` +
+`${bookmark.streetview.google.before_id}` +
+`${bookmark.streetview.google.id}` +
+`${bookmark.streetview.google.after_id}`
 
 #### Thumbnail
 
@@ -264,7 +278,7 @@ This is the URL of the image used as the background of this example bookmark in 
 
 `yaw` - Amount of rotation across the vertical axis, i.e. how rotated to the left/right the image is. One full rotation has range `[0,360]`. There's no restriction, however. Negative values are also allowed. In this case, it is `325.23`.  This value is retrieved from the `yaw` key.
 
-`pitch` - Amount of rotation in a front-to-back manner, i.e. how rotated up/down the image is.  One full rotation has range `[90,-90]`, where `90` aims at the floor and `-90` at the sky. There's no restriction, however. In this case, it is `2.39662921348`. This value is retrieved from the `thumbnail_pitch` key, which undergoes a linear transformation in order to be mapped from [1,179] to [90,-90].
+`pitch` - Amount of rotation in a front-to-back manner, i.e. how rotated up/down the image is.  One full rotation has range `[90,-90]`, where `90` aims at the floor and `-90` at the sky. There's no restriction, however. In this case, it is `2.39662921348`. This value is retrieved from the `thumbnail_pitch` key, which undergoes a linear transformation in order to be mapped from `[1,179]` to `[90,-90]`.
 
 `thumbfov` - Fov (field of view) of the resulting thumbnail. In this case it is `90`. The allowed range in Street View is `[15,90]`, however, the restriction here is `[0,175]`. Where `0` is the most zoom and `175` is the least zoom. This value is retrieved from the `fov` key.
 
@@ -317,17 +331,21 @@ If this is the case, the details about the thumbnail API are the exact same as t
 
 ## How the extension behaves
 
-In order to check updates to the Google Maps/Street View page and the URL itself, the script calls a function every 10ms. It runs 100 times a second. Which is quite a lot, however, since it only performs simple checks, it shouldn't generally heavily impact performance. You can change this value in the content script at "scripts/content/main.js" just below the "setup_map_bookmark" and "setup_street_view_bookmark" function definitions, through the "interval" variable.
+In order to check updates to the Google Maps/Street View page and the URL itself, the script calls a function every `10ms`. It runs `100` times a second. Which is quite a lot, however, since it only performs simple checks, it shouldn't generally heavily impact performance. You can change this value in the content script at `dist/scripts/content/main.js` just below the `setup_map_bookmark` and `setup_street_view_bookmark` function definitions, through the `interval` variable.
 
 These functions check for URL changes in order to keep track of whenever the user moves inside Street View to another location, goes back to Google Maps, and vice versa. It also updates the bookmark star accordingly in the open Google Maps/Street View page(s) if the user adds/removes the bookmark through the extension page.
 
-Whenever a bookmark is added/removed, the extension page (if it's open) will refresh itself and go back to the top of the hierarchy.
+Whenever a bookmark is added/removed, the extension page (if it's open and is there aren't multiple tabs of the extension page open) will refresh itself and go back to the top of the hierarchy.
 
 Given the asynchronous nature of these functions, and me not really spending much time on preventing them, eventually race conditions may occur.
 
-As I haven't sent the extension to be signed by Mozilla, and Firefox only allows you to install signed extensions by default, the Firefox flag "xpinstall.signatures.required" has to be set to false. This setting only works on the Nightly and Developer editions of Firefox. The extension is currently functional (as of 10/29/2022, Firefox Nightly 108.0a1).
+As I haven't sent the extension to be signed by Mozilla, and Firefox only allows you to install signed extensions by default, the Firefox flag `xpinstall.signatures.required` has to be set to false. This setting only works on the **Nightly** and **Developer** editions of **Firefox**. The extension is currently functional (as of 10/29/2022, Firefox Nightly 108.0a1).
 
-Although the code in principle should theoretically work cross-browser (the browser specific API has been abstracted to the "bapi" variable instead of "chrome" for Chrome and "browser" for Firefox), it doesn't work on Chrome. I don't know the exact reason why it doesn't. The error message displayed by the browser is "Uncaught (in promise) TypeError: Cannot read properties of undefined (reading 'then')", and says that it throws the exception at the function "set_storage" in "scripts/background/main.js", on the line "bapi.storage.local.set(obj).then(resolve(null))". Upon quick investigation, the function "set", which supposedly returns an undefined value, is actually ran, and as such, the only possible case for this exception to occur is if does indeed return undefined.
+Although the code in principle should theoretically work cross-browser, it doesn't work on Chrome. (The browser specific API has been abstracted to the `bapi` variable instead of `chrome` for Chrome and `browser` for Firefox). 
+
+I don't know the exact reason why it doesn't. The error message displayed by the browser is `Uncaught (in promise) TypeError: Cannot read properties of undefined (reading 'then')`, and it says that the exception is thrown at the function `set_storage` in `dist/scripts/background/main.js`, on the line `bapi.storage.local.set(obj).then(resolve(null))`.
+
+Upon quick investigation, the function `set`, which supposedly returns an undefined value, is actually ran, and as such, the only possible case for this exception to occur is if it does indeed return undefined.
 However, weirdly enough, even if this line is removed or commented out, the extension still throws the same error at the same line. As it doesn't make sense to me and I was/am not keen on spending too much time on fixing this for now, I just gave up on Chrome support, since it works on Firefox and the error is really weird. Maybe I will revisit this in the future, maybe not.
 
 ## Issues
@@ -348,7 +366,7 @@ However, weirdly enough, even if this line is removed or commented out, the exte
 <br>
 - Search bar and "Favorites" tab not yet implemented;
 <br>
-- Race conditions might occur while on Google Maps/Street View, as the function that keeps track of updates runs 10 times a second. More specifically, if another iteration of the function starts while the other hasn't yet returned, as there's a set time interval for the spawn of a new one. There also nested timed functions inside of ofther timed functions;
+- Race conditions might occur while on Google Maps/Street View, as the function that keeps track of updates runs `10` times a second. More specifically, if another iteration of the function starts while the other hasn't yet returned, as there's a set time interval for the spawn of a new one. There also nested timed functions inside of ofther timed functions;
 <br>
 - The bookmarked location's thumbnail is only available in the extension page if it was bookmarked through Google Street View/360 Degree Pictures. And Google Maps  only if the card that pops-up contains a thumbnail, as we need to query Google's servers for an ID which is supplied only in these occasions;
 <br>
@@ -368,7 +386,7 @@ However, weirdly enough, even if this line is removed or commented out, the exte
 <br>
 - Implement favorites tab: A tab intended to serve as another space where you can store your already saved bookmarks, based on your personalized hierarchies (i.e. bookmarks from different continents/countries/cities in the same section, where the section can have any name supplied by the user, with nesting allowed);
 <br>
-- Support other map sources instead of solely Google's. For example: Naver (most Korea coverage), Baidu (most China coverage), Yandex (most Eastern European coverage). I had a quick look a long time ago before making this, and at the time you were able to get a Naver Maps' Street View latitude and longitude from an XHR request coming through the "Network" tab in the developer tools of a browser, this can be a starting point;
+- Support other map sources instead of solely Google's. For example: Naver (most Korea coverage), Baidu (most China coverage), Yandex (most Eastern European/Middle eastern coverage). I had a quick look a long time ago before making this, and at the time you were able to get a Naver Maps' Street View latitude and longitude from an XHR request coming through the `Network` tab in the developer tools of a browser, this can be a starting point;
 <br>
 - Instead of reloading the bookmarks page everytime a new bookmark is added, just update the saved bookmarks and the array available to display;
 <br>
