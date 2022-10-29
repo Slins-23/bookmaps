@@ -30,9 +30,9 @@
 
 ## Important
 
-This extension uses the geolocation API at https://opencagedata.com to save bookmarks. You don't need it if you just want to import bookmarks saved from a JSON file. They have a free account quota available (2500 calls/day as of 10/29/2022). More details below in the section “Setting up the API”.
+This extension uses the geolocation API at https://opencagedata.com to save bookmarks. You don't need it if you just want to import bookmarks saved from a JSON file. They have a free account quota available (2500 calls/day as of 10/29/2022). More details below in the section `Setting up the API`.
 
-The extension works only on Firefox Nightly and Developer esditions, because you will need to set the flag "xpinstall.signatures.required" from "true" to "false", and this setting only works in these variants. The extension doesn't work on Chrome, even though it theoretically should. More on why at the end of the "How the extension behaves" section.
+The extension works only on Firefox Nightly and Developer esditions, because you will need to set the flag `xpinstall.signatures.required` from `true` to `false`, and this setting only works in these variants. The extension doesn't work on Chrome, even though it theoretically should. More on why at the end of the "How the extension behaves" section.
 
 ## About
 * If you don't care about how or why I made this extension, and just want to get it setup and ready to use or read technical details, skip this section.
@@ -343,66 +343,66 @@ However, weirdly enough, even if this line is removed or commented out, the exte
 
 ## Notes
 
-- Sometimes, Google updates the Street View location with new coordinates/identifiers, so when you open it from the extension, Google recognizes that it used to be an old URL and updates it to the new one. At this point, the extension does not recognize the new location as having already been bookmarked, since it has different coordinates. What I did to mitigate this was check if the URL has changed, and if that is the case, and the new URL is indeed a redirection from the old URL, the old bookmark gets replaced with the new one. I needed a workaround to get the new panorama ID, as for some reason, Google does not update the panorama ID in the URL, while they do with the coordinates, weirdly enough. There's an anchor element in the page that contains a reference to an URL that uses the correct panorama ID, so that's where I get it from;
-
-- Search bar, settings, and "Favorites" tab not yet implemented;
-
-- Race conditions might occur while on Google Maps/Street View, as the function that keeps track of updates runs 10 times a second. More specifically, if another iteration of the function starts while the other hasn't yet returned, as there's a set time interval for the spawning of a new one. There also other nested timed functions inside of the timed functions themselves;
-
-- The bookmarked location's thumbnail is only available in the extension page if it was bookmarked through Google Street View/360 Degree Pictures or Google Maps (if the card that pops-up contains the thumbnail), as we need to query Google's servers for an ID which is supplied only in the occasions;
-
+- Sometimes, Google updates the Street View location with new coordinates/identifiers, so when you open it from the extension, Google recognizes that it used to be an old URL and updates it to the new one. At this point, the extension does not recognize the new location as having already been bookmarked, since it has different coordinates. What I did to mitigate this was check if the URL has changed, and if that is the case, and the new URL is indeed a redirection from the old URL, the old bookmark gets replaced with the new one. I needed an workaround to get the new panorama ID, as for some reason, Google does not update the panorama ID in the URL, while they do with the coordinates, weirdly enough. There's an anchor element in the page that contains a reference to an URL that uses the correct panorama ID, so that's where I get it from;
+<br>
+- Search bar and "Favorites" tab not yet implemented;
+<br>
+- Race conditions might occur while on Google Maps/Street View, as the function that keeps track of updates runs 10 times a second. More specifically, if another iteration of the function starts while the other hasn't yet returned, as there's a set time interval for the spawn of a new one. There also nested timed functions inside of ofther timed functions;
+<br>
+- The bookmarked location's thumbnail is only available in the extension page if it was bookmarked through Google Street View/360 Degree Pictures. And Google Maps  only if the card that pops-up contains a thumbnail, as we need to query Google's servers for an ID which is supplied only in these occasions;
+<br>
 - Adding a bookmark reloads the extension page instead of updating the contents of the page themselves;
-
-- When bookmarking a bulk of locations from Street View URLs through the import section in the extension page, you will not be notified of bookmarks that were not added due to errors, they are ignored. I haven't implemented any way of properly logging errors to users, and opening an alert for every error that occurs in a list that may contain dozens or more bookmarks that are either valid or invalid bookmarks is unfeasible;
-
-- The easiest way to remove a bookmark from Google Maps is to manually delete it in the extension page, as Google Maps is much more precise with coordinates than Street View (because in Google Maps you can click anywhere, whereas Street View restricts you), so clicking somewhere very close to the bookmarked location will not be enough, it has to be the exact point that you've bookmarked. While in Street View just moving is likely sufficient, as the steps are relatively constant. There are exceptions though, particularly when switching from or to a Street View image that was taken in a different drive (i.e. different months, years). Happens most frequently in crossings.
+<br>
+- When bookmarking a bulk of locations from Street View URLs through the import section in the extension page, you will not be notified of bookmarks that were not added due to errors, they are ignored. I haven't implemented any way of properly logging errors to users, and opening an alert for every error that occurs in a list that may contain dozens or more bookmarks that are either valid or invalid is unfeasible;
+<br>
+- The easiest way to remove a bookmark saved from Google Maps is to manually delete it in the extension page, as Google Maps is much more precise with coordinates than Street View (because in Google Maps you can click anywhere, whereas Street View restricts you), so clicking somewhere very close to the bookmarked location will not be enough, it has to be the exact point that you've bookmarked. While in Street View just moving is likely sufficient, as the steps are relatively constant. There are exceptions though, particularly when switching from or to a Street View image that was taken in a different drive (i.e. different months, years). Happens most frequently in crossings.
 
 ## Todo
 
 ### Functionality
 
 - Implement search;
-
+<br>
 - Add more options in the settings;
-
+<br>
 - Implement favorites tab: A tab intended to serve as another space where you can store your already saved bookmarks, based on your personalized hierarchies (i.e. bookmarks from different continents/countries/cities in the same section, where the section can have any name supplied by the user, with nesting allowed);
-
-- Support other map sources instead of solely Google Maps. For example: Naver (most Korea coverage), Baidu (most China coverage), Yandex (most Eastern European coverage). I had a quick look a long time ago before making this, and at the time you were able to get a Naver Maps' Street View latitude and longitude in a XHR request coming through the "Network" tab in the developer tools of a browser, so this can be a starting point;
-
+<br>
+- Support other map sources instead of solely Google's. For example: Naver (most Korea coverage), Baidu (most China coverage), Yandex (most Eastern European coverage). I had a quick look a long time ago before making this, and at the time you were able to get a Naver Maps' Street View latitude and longitude from an XHR request coming through the "Network" tab in the developer tools of a browser, this can be a starting point;
+<br>
 - Instead of reloading the bookmarks page everytime a new bookmark is added, just update the saved bookmarks and the array available to display;
-
+<br>
 - Store thumbnails locally once they've been downloaded, instead of having to load them from a remote server every time a street is displayed. Roughly 5-10 kilobytes per thumbnail;
-
-- Add Google Drive synchronization support to update cloud backup of the bookmarks whenever one is added/removed, periodically (determined by the user's settings), or only when the sync button is clicked;
-
-- Query other APIs and display information about location in the extension page, as well as through an UI overlay on Google Maps/Street View, which includes current temperature, average yearly temperatures, yearly precipitation, city/neighbourhood population, and more. Add "information" icon to the extension page/bookmark which will trigger a pop-up containing this information about the current location;
-
-- When loading bookmarks from a list through the extension page, inform the user of the progress by displaying how many bookmarks have already been saved and how many remain ("x out of y bookmarks saved." and "y - x bookmarks remaining" after a new line);
-
+<br>
+- Add Google Drive synchronization support to update cloud backup of the bookmarks whenever one is added/removed, periodically (determined by the user's settings), or only when a sync button is clicked;
+<br>
+- Query other APIs and display extra information about the location in the extension page, as well as through an UI overlay on Google Maps/Street View, which includes current temperature, average yearly temperatures, yearly precipitation, city/neighbourhood population, and more. Add "information" icon to the extension page/bookmark which will trigger a pop-up containing this information about the selected location;
+<br>
 - Localize the text;
-
-- It would be nice if there was an API that could give us accurate enough median house prices for the neighbourhood on display, as well as cost of living... and with at least some quotas for free...? But unfortunately this is probably a fairly utopic desire, as most countries/regions would not have enough data, let alone accurate;
+<br>
+- It would be nice if there was an API that could give us accurate enough median house prices for the neighbourhood on display, as well as cost of living... And with at least some quotas for free...? But unfortunately this is probably a fairly utopic desire, as most countries/regions would not have enough data, let alone accurate.
 
 ### Aesthetics (includes minor functionality)
 
 - Standardize sizes and resizes of various elements and text, accounting for zoom, different resolutions, pseudo element sizes, and get rid of hardcoded measures;
-
+<br>
 - Pick a default color palette/theme and allow user customization;
-
+<br>
 - Display how many calls to the Opencagedata API have been made in the last 24 hours (or the current day, depending on when the API resets), so as to not forget about the 2500 limit (if your account is free), then disable bookmarking if the limit has been reached;
-
+<br>
 - Loading animation (maybe a circular spiral animation) alongside text that says "Saving...", when saving bookmarks, both on Google Maps/Street View and on the extension page, while overlaying the whole page in the meantime;
-
+<br>
+- When importing bookmarks from a list through the extension page, inform the user of the progress by displaying how many bookmarks have already been saved and how many remain ("x out of y bookmarks saved." and "y - x bookmarks remaining" after a new line);
+<br>
 - If other map sources have been implemented, indicate which street view application was used (i.e. Baidu, Google, Naver, Yandex);
-
+<br>
 - Add tooltips to buttons informing the user of its basic functionality (i.e. "Bookmark", "Import", "Export", "Settings").
 
 ### Semantics
 
 - Remove obsolete comments (there are many comments that stem from removed/updated code);
-
+<br>
 - Standardize variable names;
-
+<br>
 - Comment code.
 
 ## Useful links to improve/manage the extension
