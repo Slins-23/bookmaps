@@ -346,13 +346,13 @@ However, weirdly enough, even if this line is removed or commented out, the exte
 ## Issues
 
 - Sometimes the bookmark star icon may disappear and/or stop working properly after clicking somewhere that you're not supposed to. Meaning a location that's not a road/unlabeled land (i.e. gray square building, name of neighbourhood, city, country, hospital, supermarket, etc. Basically anything that turns the Google Maps marker red). Reloading Google Maps with its base (maps.google.com) address resets the content script and it will probably work again.
-<br>
+
 - This extension was made and tested on a 2560x1440 monitor, therefore overflows and other visual glitches are to be expected in different resolutions. Even in the same resolution as well;
-<br>
+
 - In the extension page, the bookmark, download, and add buttons, as well as the search bar, are not perfectly aligned;
-<br>
+
 - One time I was checking something out in South Korea's Street View, and the script didn't work correctly. I noticed that it had something to do with the coordinates in the URL not changing despite moving to another location. So, be aware that this may occur and break the bookmarking script until the page is reloaded;
-<br>
+
 - Whenever you remove/add a bookmark through Google Maps/Street View, the extension page is meant to reload. However, if you have multiple tabs of the extension page open, only one of them will reload and update, while the other ones remain unchanged until you refresh the page. It seems to be the case that it is always the tab that's the leftmost.
 
 ## Notes
