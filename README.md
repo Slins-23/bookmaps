@@ -146,7 +146,7 @@ The data to be imported in the picture above uses the format that the extension 
 In this case, you're bookmarking the URLs from scratch as if you were going through them one by one, which clearly doesn't contain any extra information, and as such, calls to the API have to be made and you need a valid API key set in this case. Unlike in the example above.
 
 ## How bookmarks are formatted and stored in JSON
-***You can find an example JSON export with ~558 bookmarks in the `bookmarks_example.json` file. All you have to do is import it.*** The thumbnail pitch is slightly wrong in this example file, but the cause for that has already been fixed.
+**You can find an example JSON export with ~558 bookmarks in the `bookmarks_example.json` file. All you have to do is import it.** The thumbnail pitch is slightly wrong in the bookmarks from this file (it just rotates the thumbnail image slightly differently than the bookmark itself), but the cause for that has already been fixed.
 
 Calls to the API are made in the following format: `https://api.opencagedata.com/geocode/v1/json?q=LAT+LNG&key=YOUR-API-KEY`. Where `LAT` is the latitude coordinate, `LNG` is the longitude coordinate and `YOUR-API-KEY` is, well, self-explanatory.
 
@@ -205,46 +205,45 @@ The following JSON data is an example of how the bookmarks are saved in the exte
     }
 }]
 ```
-Keys that contain geographical information about the location itself are pulled from the Opencagedata API (which returns information from parameterized coordinates), while data pertaining to Google Maps/Street View is decoded by the extension from their URLs. In this example there is a single bookmark, which starts and ends at the first and last curly brackets, respectively. All bookmarks are stored inside this array. All keys, except the `streetview` key, are retrieved from the Opencagedata API.
+Keys that contain geographical information about the location are pulled from the Opencagedata API (which returns information from parameterized coordinates), while data pertaining to Google Maps/Street View is decoded by the extension from their URLs or source code. In this example there is a single bookmark, which starts and ends at the first and last curly brackets, respectively. All bookmarks are stored inside this array. All keys, except the `streetview` key, are retrieved from the Opencagedata API.
 
 Explanation of the `streetview` key:
 
-`google` - The category of the Street View. In this case, its used only for bookmarks from Google services (i.e. Google Maps/Street View/360 degree Pictures). Currently only Google is supported, so this will always be the case, however, in the future there could be other services supported, and this key would be replaced with the given service (i.e. Naver maps (South Korea), Baidu maps (China), Yandex maps (Eastern Europe/Middle east), etc.).
+`google` - The category of the Street View. In this case, its used only for bookmarks from Google services (i.e. Google Maps/Street View/360 degree Pictures). Currently only Google is supported, so this will always be the case, however, in the future there could be other services supported, and this key would be replaced with the given service. (i.e. Naver maps (South Korea), Baidu maps (China), Yandex maps (Eastern Europe/Middle east), etc.)
 
 In order to better understand the keys for Google, and how they encode the URLs, here is some explanation of how the URLs (Street View and thumbnail) were constructed from this JSON example: 
 
 ### Google Street View bookmark
 
-Whenever this bookmark is clicked in the extension, the browser opens a new tab with the URL https://www.google.com/maps/@-29.6974533,-53.7930744,3a,90y,325.23h,87.63t/data=!3m6!1e1!3m4!1saJNKCShn4mJGvIBXGWGA8A!2e0!7i16384!8i8192.
+Whenever this bookmark is clicked in the extension, the browser opens a new tab with the URL: https://www.google.com/maps/@-29.6974533,-53.7930744,3a,90y,325.23h,87.63t/data=!3m6!1e1!3m4!1saJNKCShn4mJGvIBXGWGA8A!2e0!7i16384!8i8192.
 
 These are the URLs you will get when bookmarking in Street View:
 
- * When you first enter the Street View - https://www.google.com/maps/@-29.6974533,-53.7930744,3a,90y,325.23h,87.63t/data=!3m7!1e1!3m5!1sOrtigdty4Nyl9U2VdzuSVg!2e0!6shttps:%2F%2Fstreetviewpixels-pa.googleapis.com%2Fv1%2Fthumbnail%3Fpanoid%3DOrtigdty4Nyl9U2VdzuSVg%26cb_client%3Dmaps_sv.tactile.gps%26w%3D203%26h%3D100%26yaw%3D222.0353%26pitch%3D0%26thumbfov%3D100!7i16384!8i8192 
+ * When you first enter the Street View: https://www.google.com/maps/@-29.6974533,-53.7930744,3a,90y,325.23h,87.63t/data=!3m7!1e1!3m5!1sOrtigdty4Nyl9U2VdzuSVg!2e0!6shttps:%2F%2Fstreetviewpixels-pa.googleapis.com%2Fv1%2Fthumbnail%3Fpanoid%3DOrtigdty4Nyl9U2VdzuSVg%26cb_client%3Dmaps_sv.tactile.gps%26w%3D203%26h%3D100%26yaw%3D222.0353%26pitch%3D0%26thumbfov%3D100!7i16384!8i8192 
  
- * When you move in the street/click somewhere - https://www.google.com/maps/@-29.6974533,-53.7930744,3a,90y,325.23h,87.63t/data=!3m6!1e1!3m4!1saJNKCShn4mJGvIBXGWGA8A!2e0!7i16384!8i8192
+ * When you move in the street or click somewhere: https://www.google.com/maps/@-29.6974533,-53.7930744,3a,90y,325.23h,87.63t/data=!3m6!1e1!3m4!1saJNKCShn4mJGvIBXGWGA8A!2e0!7i16384!8i8192
  
  (Both will work)
 <br>
-`https://www.google.com/maps/@` - All Google Maps/Street View URLs start with this
+`https://www.google.com/maps/@` - All Google Maps/Street View URLs start with this.
 <br>
-`-29.6974533,-53.7930744` - The coordinates (latitude and longitude, respectively)
+`-29.6974533,-53.7930744` - The coordinates (latitude and longitude, respectively).
 <br>
 `3a,90y,325.23h,87.63t`:
 
 * `3a` - I don't know what this does. It seems to be `3a` regardless of the location in Street View, so I don't touch this.
 * `90y` - This is the fov (field of view). In this case, it is set to `90`. Its range is `[15,90]`, where `15` is the most zoom, and `90` the least zoom. Bypassing these limits through the URL parameters defaults the FOV to `75`. This value is stored in the `fov` key.
-* `325.23h` - This is the yaw (rotation across the vertical axis, i.e. how rotated to the left/right the image is). In this case it is set to `325.23`. Its range is `[0,360]`. If the value is `0`, this parameter doesn't need to be included in the URL. If the value is outside of the range, it gets reset to what it was before the modification. This is the value stored in the `yaw` key.
-* `87.63t` - This is the pitch (rotation in a front-to-back manner, i.e. how rotated up/down the image is). In this case it is set to `87.63`. Its range is `[1,179]`, where `1` is aiming at floor, and `179` aiming at the sky. Like yaw, if the value is outside of the range, it gets reset to what it was before the modification. This is the value stored in the `street_pitch` key.
-* `!3m6!1e1!3m4!1s`, `!2e0!7i16384!8i8192` - These are, respectively, added before and after the Street View ID. These are probably related to flags set by the Google Maps API whenever a response is received. I don't know exactly what they do. They are respectively stored in the keys `before_id`, `after_id`.
-* `aJNKCShn4mJGvIBXGWGA8A` - This is the ID of the given Street View location. It goes in between the encoded delimiters above. Seemingly, each Street View has its own ID, and they're very different from each other, so I assume this is hashed and has no correlation with the location itself. This always has to be included in the URL of the location, alongside the latitude/longitude coordinates. It's always made up of 22 characters. This is stored in the `id` key.
+* `325.23h` - This is the yaw (rotation across the vertical axis, i.e. how rotated to the left/right the image is). In this case it is set to `325.23`. Its range is `[0,360]`. If the value is `0`, this parameter doesn't need to be included in the URL. If the value is outside of the range, it gets reset to what it was before the modification. This value is stored in the `yaw` key.
+* `87.63t` - This is the pitch (rotation in a front-to-back manner, i.e. how rotated up/down the image is). In this case it is set to `87.63`. Its range is `[1,179]`, where `1` is aiming at floor, and `179` aiming at the sky. Like yaw, if the value is outside of the range, it gets reset to what it was before the modification. This value is stored in the `street_pitch` key.
+* `!3m6!1e1!3m4!1s`, `!2e0!7i16384!8i8192` - These are added, respectively, before and after the Street View ID. These are probably related to flags set by the Google Maps API whenever a response is received. I don't know exactly what they do. They are respectively stored in the keys `before_id`, `after_id`.
+* `aJNKCShn4mJGvIBXGWGA8A` - This is the ID of the given Street View location. It goes in between the encoded delimiters above. Seemingly, each Street View has its own ID, and they're very different from each other, so I assume this is hashed and has no correlation with the location itself. This always has to be included in the URL of the location. It's always made up of 22 characters. This value is stored in the `id` key.
 
 `90y` in Street View is equivalent to `thumbfov=90` in the thumbnail.
 
 `325.23h` in Street View is equivalent to `yaw=325.23` in the thumbnail.
 
 `87.63t` in Street View is equivalent to `pitch=2.39662921348` in the thumbnail.
-
-Note, however, that they have different ranges. `[1,179]` on Street View and `[90,-90]` for the thumbnail. As such, we need to normalize it. This is the linear equation I came up with to translate the Street View pitch into the thumbnail's: `(180/-178 * pitch) + (180/178) + 90`. It can be simplified, but it is more readable this way. Basically, this function (roughly) maps the range `[1,179]` to `[90,-90]` while taking some caveats into account. This value is stored in the `thumbnail_pitch` key.
+Note, however, that they have different ranges. `[1,179]` on Street View and `[90,-90]` for the thumbnail. As such, we need to normalize it. This is the linear equation I came up with to translate the Street View pitch into the thumbnail's: `(180/-178 * pitch) + (180/178) + 90`. It can be simplified, but it is more readable this way. Basically, this function (roughly) maps the range `[1,179]` to `[90,-90]`, while taking some caveats into account. This value is stored in the `thumbnail_pitch` key.
 
 The parameters are inserted as such: 
 
@@ -265,19 +264,19 @@ The parameters are inserted as such:
 
 https://streetviewpixels-pa.googleapis.com/v1/thumbnail?panoid=aJNKCShn4mJGvIBXGWGA8A&cb_client=search.revgeo_and_fetch.gps&w=150&h=150&yaw=325.23&pitch=2.39662921348&thumbfov=90
 
-This is the URL of the image used as the background of this example bookmark in the extension page, as a thumbnail.
+This is the URL of the image used as the background of this example bookmark in the extension page.
 
-`panoid` - ID of the panoramic image of the given Google Maps/Street View bookmark. In this case it is `aJNKCShn4mJGvIBXGWGA8A`. This value is retrieved from the `id` key.
+`panoid` - ID of the panoramic image of the given Google Maps/Street View bookmark. In this case it is `aJNKCShn4mJGvIBXGWGA8A`. This value is stored in the `id` key.
 
-`w` - Width of the resulting thumbnail. In this case it is `150`. It doesn't need to be proportional to the height. The maximum value is `1024px`. This will always be `150`, as I have hardcoded this.
+`w` - Width of the resulting thumbnail. In this case it is `150`. It doesn't need to be proportional to the height. The maximum value is `1024px`. This will always be `150`, as I have hardcoded it.
 
-`h` - Height of the resulting thumbnail. In this case it is `150`. It doesn't need to be proportional to the width. The maximum value is `576px`. This will always be `150`, as I have hardcoded this.
+`h` - Height of the resulting thumbnail. In this case it is `150`. It doesn't need to be proportional to the width. The maximum value is `576px`. This will always be `150`, as I have hardcoded it.
 
-`yaw` - Amount of rotation across the vertical axis, i.e. how rotated to the left/right the image is. One full rotation has range `[0,360]`. There's no restriction, however. Negative values are also allowed. In this case, it is `325.23`.  This value is retrieved from the `yaw` key.
+`yaw` - Amount of rotation across the vertical axis, i.e. how rotated to the left/right the image is. One full rotation has range `[0,360]`. There's no restriction, however. Negative values are also allowed. In this case, it is `325.23`.  This value is stored in the `yaw` key.
 
-`pitch` - Amount of rotation in a front-to-back manner, i.e. how rotated up/down the image is.  One full rotation has range `[90,-90]`, where `90` aims at the floor and `-90` at the sky. There's no restriction, however. In this case, it is `2.39662921348`. This value is retrieved from the `thumbnail_pitch` key, which undergoes a linear transformation in order to be mapped from `[1,179]` to `[90,-90]`.
+`pitch` - Amount of rotation in a front-to-back manner, i.e. how rotated up/down the image is.  One full rotation has range `[90,-90]`, where `90` aims at the floor and `-90` at the sky. There's no restriction, however. In this case, it is `2.39662921348`. This value is stored in the `thumbnail_pitch` key, which undergoes a linear transformation in order to be mapped from `[1,179]` to `[90,-90]`.
 
-`thumbfov` - Fov (field of view) of the resulting thumbnail. In this case it is `90`. The allowed range in Street View is `[15,90]`, however, the restriction here is `[0,175]`. Where `0` is the most zoom and `175` is the least zoom. This value is retrieved from the `fov` key.
+`thumbfov` - Fov (field of view) of the resulting thumbnail. In this case it is `90`. The allowed range in Street View is `[15,90]`, however, the restriction here is `[0,175]`. Where `0` is the most zoom and `175` is the least zoom. This value is stored in the `fov` key.
 
 ### 360 degree picture bookmark
 
@@ -288,7 +287,7 @@ However, the same principles apply here. They're not that different. The URL of 
 Here's an example ID of an image in Belarus: `AF1QipN_GdGo8lqN-gDVG3cpJdNLDRGHawOqfMfOprMi`
 This one in Rio: `AF1QipOVIfdCT-QdUhyFNZP_Z9hrDbPCBSUpZQdbxxIE`
 
-If you pay attention, you will notice that the first 4 characters are the same. This seems to always be the case, meanwhile the rest of the ID remains ever changing. I don't know what this is for.
+If you pay attention, you will notice that the first 6 characters are the same. This seems to always be the case, meanwhile the rest of the ID remains ever changing. I don't know what this is for.
 
 #### Thumbnail
 
