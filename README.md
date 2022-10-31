@@ -362,9 +362,11 @@ As it doesn't make sense to me and I was/am not keen on spending too much time o
 
 ## Notes
 
-- Sometimes, Google updates the Street View location with new coordinates/identifiers, so when you open it from the extension, Google recognizes that it used to be an old URL and updates it to the new one, so it has some sort of backward compatibility with older URLs. At this point, the extension does not recognize the new location as having already been bookmarked, since it has different coordinates. What I did to mitigate this was check if the URL has changed, and if the new URL is indeed a redirection from the old URL, then the old bookmark gets replaced with the new one. I needed an workaround to get the new panorama ID, as for some reason, Google does not update the panorama ID in the URL, while they do update the coordinates, weirdly enough. There's an anchor element in the page that contains a reference to an URL that uses the correct panorama ID, so that's where I get it from;
-
 - Search bar and "Favorites" tab not yet implemented;
+
+- I haven't tested bookmarking on Street View with older panoramas;
+
+- Sometimes, Google updates the Street View location with new coordinates/identifiers, so when you open it from the extension, Google recognizes that it used to be an old URL and updates it to the new one, so it has some sort of backward compatibility with older URLs. At this point, the extension does not recognize the new location as having already been bookmarked, since it has different coordinates. What I did to mitigate this was check if the URL has changed, and if the new URL is indeed a redirection from the old URL, then the old bookmark gets replaced with the new one. I needed an workaround to get the new panorama ID, as for some reason, Google does not update the panorama ID in the URL, while they do update the coordinates, weirdly enough. There's an anchor element in the page that contains a reference to an URL that uses the correct panorama ID, so that's where I get it from;
 
 - Race conditions might occur while on Google Maps/Street View, as the function that keeps track of updates runs `10` times a second. More specifically, if another iteration of the function starts while the other hasn't yet returned, as there's a set time interval for the spawn of a new one. There are also nested timed functions inside of ofther timed functions;
 
