@@ -30,7 +30,7 @@
 
 ## Important
 
-This extension uses the geolocation API at https://opencagedata.com to save bookmarks. You don't need it if you just want to import bookmarks saved from a JSON file. They have a free account quota available (2500 calls/day as of 10/29/2022). More details below in the section `Setting up the API`.
+This extension uses the geolocation API at https://opencagedata.com to save bookmarks. You don't need it if you just want to import bookmarks saved from a JSON file. They have a free account quota available (2500 calls/day as of 10/29/2022). More details below in the section [Setting up the API](#setting-up-the-api)`Setting up the API`.
 
 The extension works only on Firefox Nightly and Developer esditions, because you will need to set the flag `xpinstall.signatures.required` from `true` to `false`, and this setting only works in these variants. The extension doesn't work on Chrome, even though it theoretically should. More on why at the end of the `How the extension behaves` section.
 
