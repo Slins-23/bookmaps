@@ -12,7 +12,7 @@
   * [Removing bookmarks in the extension page](#removing-bookmarks-in-the-extension-page)
   * [Exporting](#exporting)
   * [Importing](#importing)
-- [How bookmarks are formatted and stored in JSON](#how-bookmarks-and-their-google-maps-street-view-data-are-formatted-and-stored-in-json)
+- [How bookmarks are formatted and stored in JSON](#how-bookmarks-are-formatted-and-stored-in-json)
   * [Google Street View bookmark](#google-street-view-bookmark)
     + [Thumbnail](#thumbnail)
   * [360 degree picture bookmark](#360-degree-picture-bookmark)
