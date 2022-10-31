@@ -293,13 +293,16 @@ If you pay attention, you will notice that the first 6 characters are the same. 
 
 https://lh5.googleusercontent.com/p/AF1QipMowgvmpvd6Qu2IJT566SkOGSKq6eSIC6E5CjBj=w150-h150-k-no-pi-0-ya55-ro-0-fo100
 
-The other difference is that the server where we get the thumbnail is not the same as Street View.
+The other difference is that the server where we get the thumbnail from is not the same as Street View.
 
-This is the URL of the image used in the background of a bookmark's card in the extension page, as a thumbnail. Here, inputing invalid parameters, unlike the Street View thumbnails, gives you a bad request.
+This is the URL of the image used in the background of a bookmark's card in the extension page, as a thumbnail. Here, inputing invalid parameters, unlike Street View thumbnails, gives you a bad request.
 
-As you can see below, you are allowed to manually request images of up to `16383x16383` pixels, which are huge, and might unnecessarily overload their servers (something an attacker can eventually pry on), as ideally only Google servers and people with a private API key should be allowed to call these to such an extent. That's what I assume at least, given Google charges for access to their APIs, including Google Maps. Therefore, Google maybe should take a second look at this from a security standpoint, then ideally standardize and sanitize their input in regards to these APIs, and/or decrease the limit of the allowed dimensions of the requested image from any call that doesn't come from Google themselves or has from someone who has a private API key.
+As you can see below, you are allowed to manually request images of up to `16383x16383` pixels, which are huge, and might unnecessarily overload their servers (something an attacker can eventually pry on), as ideally only Google servers and people with a private API key should be allowed to call these to such an extent in terms of bandwidth. That's what I assume at least, given Google charges for access to their APIs, including Google Maps.
 
-The id of the panoramic image in the given picture starts after `/p/` and ends before the equal sign. In this case it is `AF1QipMowgvmpvd6Qu2IJT566SkOGSKq6eSIC6E5CjBj`.
+
+Therefore, Google maybe should take a second look at this from a security standpoint, then ideally standardize and sanitize their input in regards to these APIs, and/or decrease the limit of the allowed dimensions for the requested image from any call that doesn't come from whitelisted clients.
+
+The id of the panoramic image in the given picture starts after `/p/` and ends before the `=` sign. In this case it is `AF1QipMowgvmpvd6Qu2IJT566SkOGSKq6eSIC6E5CjBj`.
 
 `w` - Width of the resulting thumbnail. In this case it is `150`. It doesn't need to be proportional to the height. The maximum value is `16383px`.
 
