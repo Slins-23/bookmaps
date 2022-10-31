@@ -30,32 +30,34 @@
 
 ## Important
 
-This extension uses the geolocation API at https://opencagedata.com to save bookmarks. You don't need it if you just want to import bookmarks saved from a JSON file. They have a free account quota available (2500 calls/day as of 10/29/2022). More details below in the section [Setting up the API](#setting-up-the-api)`Setting up the API`.
+This extension uses the geolocation API at https://opencagedata.com to save bookmarks. You don't need it if you just want to import bookmarks saved from a JSON file. They have a free account quota available (2500 calls/day as of 10/29/2022). More details below in the section [Setting up the API](#setting-up-the-api).
 
-The extension works only on Firefox Nightly and Developer esditions, because you will need to set the flag `xpinstall.signatures.required` from `true` to `false`, and this setting only works in these variants. The extension doesn't work on Chrome, even though it theoretically should. More on why at the end of the `How the extension behaves` section.
+The extension works only on Firefox Nightly and Developer editions, because you will need to set the flag `xpinstall.signatures.required` from `true` to `false`, and this setting only works in these variants. The extension doesn't work on Chrome, even though it theoretically should. More on why at the end of the [How the extension behaves](#how-the-extension-behaves) section.
 
 ## About
 * If you don't care about how or why I made this extension, and just want to get it setup and ready to use or read technical details, skip this section.
 
-This extension was made a couple of months ago, primarily because I have a hobby of going through Google Street View in places that interest me for whatever reason, and I used to save the URLs of the places that I found particularly interesting, inside text files. The other reason was that I have never made a browser extension, so I wanted to experiment with that.
+This extension was made a couple of months ago, primarily because I have a hobby of going through Google Street View in places that interest me for whatever reason, and I used to save their URLs inside text files. The other reason was that I have never made a browser extension, so I wanted to experiment with that.
 
-Being my first browser extension and not knowing exactly how to get what I wanted to do at many times, this extension is full of workarounds, unnecessary lines of code and redundant code, that I now know how to improve as I've become familiarized with how certain things work. All of which can easily be refactored and become more concise, less bloated and more straightforward, as well as more consistent and with less bugs. 
+Being my first browser extension and not knowing exactly how to get what I wanted to at many times, this extension is full of workarounds, unnecessary lines of code and redundant code, that I now know how to improve as I've become familiarized with how certain things work. All of which can easily be refactored and become more concise, less bloated, and more straightforward, as well as more consistent and with less bugs. 
 
 However, since this is not meant to be a perfect browser extension and I've made it primarily for both personal usage and learning experience, I don't expect to make changes to this project soon enough, as I have other priorities.
 
-I'm uploading this today (10/29/2022), and have fixed tons of critical issues, inconsistencies, and added small features that makes it easier for the end user over the last ~2 weeks to get it ready for Github, but 80% of what is being published has already been mostly finished and working well enough for the last ~3-4 months.
+I'm uploading this today (10/29/2022), as I have fixed tons of critical issues, inconsistencies, and added small features that makes it easier for the end user over the last ~2 weeks to get it ready for Github, but 80% of what is being uploaded has already been mostly finished and working well enough for the last ~3-4 months.
 
 It is nowhere near polished enough to be published, has missing features and bugs. Not to mention a not very captivating user interface, but it's at the very least functional and serves its purpose. However, since it has been a while that I've made and have been using it without many issues, being my first browser extension and useful for me, I decided to upload it here.
 
-Also, Google hasn't yet broken anything, which will eventually happen in the future as they update their services. So, be aware that if Google decides to update Google Maps/Google Street View, it will possibly break, depending on the changes made. The fix should be relatively simple if it doesn't change much, as simply updating the elements' selectors might suffice. Changes in the URL formatting/encoding might also break the extension.
+Also, Google hasn't yet broken anything, which will eventually happen as they update their services. So, be aware that if Google decides to update Google Maps/Google Street View, it will possibly break, depending on the changes made. The fix should be relatively simple if it doesn't change much, as simply updating the elements' selectors might suffice. Changes in the URL formatting/encoding might also break the extension.
 
 ## Setting up the API
 
+***You can still use the extension without an API key. However, you won't be able to bookmark things yourself. You will need to import bookmarks from other people or ones that you've exported yourself.*** This is the only limitation if you don't have a valid API key set. More about exporting is explained in the [Exporting](#exporting) section below.
+
 This API is what allows the extension to separate bookmarks based on their geographic details, which is what it provides given the latitude and longitude as parameters.
 
-***You can still use the extension without an API key. However, you won't be able to bookmark things yourself. You will need to import bookmarks from other people or ones that you've exported yourself.*** This is the only limitation if you don't have a valid API key set. More about exporting is explained in the `Exporting` section below.
+A free account gives you a quota of `2500` calls per day (as of 10/29/2022), which should be more than enough for the average user. Every time a bookmark gets added directly through Google Maps/Street View or from their URLs/coordinates in the extension page, a call is made to the API. Calls are made in the `get_bookmark` function in the `dist/scripts/background/main.js` file.
 
-A free account gives you a quota of `2500` calls per day (as of 10/29/2022), which should be more than enough for the average user. Everytime a bookmark gets added directly through Google Maps/Street View or from their URLs/coordinates in the extension page, a call is made to the API. Calls are made in the `get_bookmark` function in the `dist/scripts/background/main.js` file. Importing bookmarks from JSON data in the format that the extension exports (more at the `Export` section) does not make calls to the API, as the bookmarks are already set up, thus not needing an API key setup if that's all you need. You can sign up for a free account at https://opencagedata.com.
+Importing bookmarks from JSON data in the format that the extension exports (more at the [Exporting](#exporting) section) does not make calls to the API, as the bookmarks are already set up, thus not needing an API key setup if that's all you need. You can sign up for a free account at https://opencagedata.com.
 
 ![extensionapisignup_before0](https://user-images.githubusercontent.com/35003248/198834774-b8beb204-c1db-47a1-a648-9f5cac2613f2.png)
 ![extensionapisignup_before1](https://user-images.githubusercontent.com/35003248/198834776-837663f1-0021-45ab-8fa4-2a0b3223fdff.png)
@@ -75,11 +77,11 @@ Then, all you have to do is paste the API key in the textbox and click the `Upda
 
 ## How to use the extension
 
-This extension allows you to "bookmark" street locations from Google Maps (cannot bookmark places that are not street/empty land coordinates, i.e. cities themselves, hotels, hospitals, landmarks, neighbourhoods, etc.) and Google Street View, which are then stored in the extension page (which you can get to by clicking the extension in the add-on bar) as cards  in hierarchical format (starting from continents up to streets; each card click goes deeper into the hierarchy). The parsing and storage of the bookmarks is done with JSON.
+This extension allows you to "bookmark" street locations from Google Street View and Google Maps (cannot bookmark places that are not street or empty land coordinates, i.e. cities themselves, hotels, hospitals, landmarks, neighbourhoods, etc.), which are then stored in the extension page (which you can get to by clicking the extension in the add-on bar) as cards  in hierarchical format (starting from continents up to streets; each card click goes deeper into the hierarchy). The parsing and storage of the bookmarks is done with JSON.
 
 ### Bookmarking in Google Maps
 
-In order to bookmark a location in Google Maps, you have to click somewhere that is not a building or the name of a location. Basically you have to either click in an empty space or in a street, and be careful not to click on a building instead, because this won't work. If you've correctly clicked a bookmarkable location, a card will pop up in the center-bottom of the screen with a faded star icon. If you click that star, the location will then be bookmarked. If the star is not faded, this means that the selected location is already bookmarked, and you can remove it by clicking on the star once again.
+In order to bookmark a location in Google Maps, you have to click somewhere that is not a building or the name of a location. Basically you have to either click on an empty space or on a street, and be careful not to click on a building instead, because this won't work. If you've correctly clicked a bookmarkable location, a card will pop up in the center-bottom of the screen with a faded star icon. If you click that star, the location will then be bookmarked. If the star is not faded, this means that the selected location is already bookmarked, and you can remove it by clicking on the star once again.
 
 ![googlemaps_example](https://user-images.githubusercontent.com/35003248/198834825-34fe039e-87f8-4d45-9404-8a6c0c85dc70.png)
 
@@ -87,7 +89,7 @@ Clicking on any of the names on display would not work, and the marker would tur
 
 ### Bookmarking in Google Street View
 
-To bookmark a location in Google Street View, all you will have to do is simply click the faded star, just like in Google Maps, it has the same behavior. Except that the star icon is at the top-left corner of the screen alongside Google's card with information about the location, instead of at the center-bottom. If the extension is working as intended, the star should always be there.
+To bookmark a location in Google Street View, all you will have to do is simply click the faded star, just like in Google Maps it has the same behavior. Except that the star icon is at the top-left corner of the screen, instead of at the center-bottom. If the extension is working as intended, the star should always be there.
 
 ![streetview_example](https://user-images.githubusercontent.com/35003248/198834830-6a42c1d5-0e76-4675-b83c-ff013e9fb203.png)
 
@@ -107,13 +109,13 @@ You can bookmark a location from its Google Maps/Street View URL or its coordina
 
 ![extensionbookmark_pre](https://user-images.githubusercontent.com/35003248/198834846-f9f41a7d-2d1d-4ed9-b911-6b319730efad.png)
 
-In the modal that opened up, you can input the Google Maps/Street View URL or its coordinates, then click `ADD` to bookmark it. If trying to add by coordinates, you have to input the latitude and longitude, respectively, separated by a comma or whitespace.
-
 ![extensionbookmark_after](https://user-images.githubusercontent.com/35003248/198834853-0ce474d4-1dfe-435c-8dda-f7ac7da1f695.png)
+
+In the modal that opened up, you can input the Google Maps/Street View URL or its coordinates, then click `ADD` to bookmark it. If trying to add by coordinates, you have to input the latitude and longitude, respectively, separated by a comma or whitespace.
 
 ### Removing bookmarks in the extension page
 
-You can remove a specific bookmark or all child bookmarks (bookmarks inside a given location) by hovering over the card and clicking the "X" icon in the top-right corner. If the card clicked has children, a prompt will pop up asking whether you want to proceed while showing you how many bookmarks will be removed.
+You can remove a specific bookmark or all children bookmarks (bookmarks inside a given location) by hovering over the card and clicking the "X" icon in the top-right corner. If the card clicked has children, a prompt will pop up asking whether you want to proceed while showing you how many bookmarks will be removed.
 
 ![extensiondelete_pre](https://user-images.githubusercontent.com/35003248/198834863-b1490dd2-0447-4ac5-a1b5-64f83f8537a1.png)
 ![extensiondelete_after](https://user-images.githubusercontent.com/35003248/198834870-76ce0a83-6b07-4dd5-a558-d50e18105bfd.png)
@@ -124,9 +126,9 @@ You can export the bookmarks to a JSON file, by clicking the icon with an arrow 
 
 ![extensionexport_pre](https://user-images.githubusercontent.com/35003248/198834879-7ccd6a45-1d74-4f3f-a2f7-9dd9bf55157e.png)
 
-It opens up a modal where you can either download the JSON formatted file containing the bookmarks or copy/read the text itself.
-
 ![extensionexport_after](https://user-images.githubusercontent.com/35003248/198834885-a3a8ad73-fc5c-4e14-99e2-32b0f1d95fc0.png)
+
+It opens up a modal where you can either download the JSON formatted file containing the bookmarks or copy/read the text itself.
 
 ### Importing
 
@@ -143,7 +145,7 @@ The data to be imported in the picture above uses the format that the extension 
 
 In this case, you're bookmarking the URLs from scratch as if you were going through them one by one, which clearly doesn't contain any extra information, and as such, calls to the API have to be made and you need a valid API key set in this case. Unlike in the example above.
 
-## How bookmarks and their Google Maps/Street View data are formatted and stored in JSON
+## How bookmarks are formatted and stored in JSON
 ***You can find an example JSON export with ~558 bookmarks in the `bookmarks_example.json` file. All you have to do is import it.*** The thumbnail pitch is slightly wrong in this example file, but the cause for that has already been fixed.
 
 Calls to the API are made in the following format: `https://api.opencagedata.com/geocode/v1/json?q=LAT+LNG&key=YOUR-API-KEY`. Where `LAT` is the latitude coordinate, `LNG` is the longitude coordinate and `YOUR-API-KEY` is, well, self-explanatory.
