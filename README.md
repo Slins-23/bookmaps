@@ -330,22 +330,23 @@ If this is the case, the details about the thumbnail API are the exact same as t
 
 ## How the extension behaves
 
-In order to check updates to the Google Maps/Street View page and the URL itself, the script calls a function every `10ms`. It runs `100` times a second. Which is quite a lot, however, since it only performs simple checks, it shouldn't generally heavily impact performance. You can change this value in the content script at `dist/scripts/content/main.js` just below the `setup_map_bookmark` and `setup_street_view_bookmark` function definitions, through the `interval` variable.
+In order to check updates to the Google Maps/Street View page and URL, the script calls a function every `10ms`. It runs `100` times a second. Which is quite a lot, however, since it only performs simple checks, it shouldn't generally heavily impact performance. You can change this value in the content script at `dist/scripts/content/main.js` just below the `setup_map_bookmark` and `setup_street_view_bookmark` function definitions, through the `interval` variable. There probably is a better way to propagate changes from the extension page to other tabs than having to do it this way.
 
 These functions check for URL changes in order to keep track of whenever the user moves inside Street View to another location, goes back to Google Maps, and vice versa. It also updates the bookmark star accordingly in the open Google Maps/Street View page(s) if the user adds/removes the bookmark through the extension page.
 
-Whenever a bookmark is added/removed, the extension page (if it's open and is there aren't multiple tabs of the extension page open) will refresh itself and go back to the top of the hierarchy.
+Whenever a bookmark is added/removed, the extension page will refresh itself and go back to the top of the hierarchy. (If it's open and there aren't multiple tabs of the extension page) 
 
 Given the asynchronous nature of these functions, and me not really spending much time on preventing them, eventually race conditions may occur.
 
-As I haven't sent the extension to be signed by Mozilla, and Firefox only allows you to install signed extensions by default, the Firefox flag `xpinstall.signatures.required` has to be set to false. This setting only works on the **Nightly** and **Developer** editions of **Firefox**. The extension is currently functional (as of 10/29/2022, Firefox Nightly 108.0a1).
+As I haven't sent the extension to be signed by Mozilla, and Firefox only allows you to install signed extensions by default, the Firefox flag `xpinstall.signatures.required` has to be set to `false` in `about:config`. This setting only works on the **Nightly** and **Developer** editions of **Firefox**. The extension is currently functional (as of 10/29/2022, Firefox Nightly 108.0a1).
 
-Although the code in principle should theoretically work cross-browser, it doesn't work on Chrome. (The browser specific API has been abstracted to the `bapi` variable instead of `chrome` for Chrome and `browser` for Firefox). 
+Although the code in principle should theoretically work cross-browser, it doesn't work on Chrome. (The browser specific API has been abstracted to a variable called `bapi` instead of `chrome` for Chrome and `browser` for Firefox)
 
 I don't know the exact reason why it doesn't. The error message displayed by the browser is `Uncaught (in promise) TypeError: Cannot read properties of undefined (reading 'then')`, and it says that the exception is thrown at the function `set_storage` in `dist/scripts/background/main.js`, on the line `bapi.storage.local.set(obj).then(resolve(null))`.
 
 Upon quick investigation, the function `set`, which supposedly returns an undefined value, is actually ran, and as such, the only possible case for this exception to occur is if it does indeed return undefined.
-However, weirdly enough, even if this line is removed or commented out, the extension still throws the same error at the same line. As it doesn't make sense to me and I was/am not keen on spending too much time on fixing this for now, I just gave up on Chrome support, since it works on Firefox and the error is really weird. Maybe I will revisit this in the future, maybe not.
+However, weirdly enough, even if this line is removed or commented out, the extension still throws the same error at the same line. 
+As it doesn't make sense to me and I was/am not keen on spending too much time on fixing this for now, I just gave up on Chrome support, since it works on Firefox and the error is really weird. Maybe I will revisit this in the future, maybe not.
 
 ## Issues
 
