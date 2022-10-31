@@ -386,19 +386,19 @@ As it doesn't make sense to me and I was/am not keen on spending too much time o
 
 - Implement favorites tab: A tab intended to serve as another space where you can store your already saved bookmarks, based on your personalized hierarchies (i.e. bookmarks from different continents/countries/cities in the same section, where the section can have any name supplied by the user, with nesting allowed);
 
-- Support other map sources instead of solely Google's. For example: Naver (most Korea coverage), Baidu (most China coverage), Yandex (most Eastern European/Middle eastern coverage). I had a quick look a long time ago before making this, and at the time you were able to get a Naver Maps' Street View latitude and longitude from an XHR request coming through the `Network` tab in the developer tools of a browser, this can be a starting point;
+- Support other map sources instead of solely Google's. For example: Naver (most Korea coverage), Baidu (most China coverage), Yandex (most Eastern European/Middle eastern coverage). I had a quick look a long time ago before making this, and at the time you were able to get a Naver Maps' Street View latitude and longitude from an XHR request coming through the `Network` tab in the developer tools of the browser, this can be a starting point;
 
 - Instead of reloading the bookmarks page everytime a new bookmark is added, just update the saved bookmarks and the array available to display;
 
 - Store thumbnails locally once they've been downloaded, instead of having to load them from a remote server every time a street is displayed. Roughly 5-10 kilobytes per thumbnail;
 
-- Add Google Drive synchronization support to update cloud backup of the bookmarks whenever one is added/removed, periodically (determined by the user's settings), or only when a sync button is clicked;
+- Add Google Drive synchronization support to update cloud backup of the bookmarks whenever one is added/removed. Periodically (determined by the user's settings), or only when a sync button is clicked;
 
-- Query other APIs and display extra information about the location in the extension page, as well as through an UI overlay on Google Maps/Street View, which includes current temperature, average yearly temperatures, yearly precipitation, city/neighbourhood population, and more. Add "information" icon to the extension page/bookmark which will trigger a pop-up containing this information about the selected location;
+- Query other APIs and display extra information about the location in the extension page, as well as through an UI overlay on Google Maps/Street View, which includes current temperature, average yearly temperatures, yearly precipitation, city/neighbourhood population, and more. Add "info" icon to the extension page/bookmark which will trigger a pop-up containing this information about the selected location;
 
-- Localize the text;
+- Localize the text to other languages;
 
-- It would be nice if there was an API that could give us accurate enough median house prices for the neighbourhood on display, as well as cost of living... And with at least some quotas for free...? But unfortunately this is probably a fairly utopic desire, as most countries/regions would not have enough data, let alone accurate.
+- It would be nice if there was an API that could give us accurate enough median house prices for the neighbourhood on display, as well as cost of living... With at least some quotas for free...? But unfortunately this is probably a fairly utopic desire, as most countries/regions would not have enough data, let alone accurate.
 
 ### Aesthetics (includes minor functionality)
 
@@ -412,9 +412,9 @@ As it doesn't make sense to me and I was/am not keen on spending too much time o
 
 - When importing bookmarks from a list through the extension page, inform the user of the progress by displaying how many bookmarks have already been saved and how many remain ("x out of y bookmarks saved." and "y - x bookmarks remaining" after a new line);
 
-- If other map sources have been implemented, indicate which street view application was used (i.e. Baidu, Google, Naver, Yandex);
+- If other map sources have been implemented, indicate which Street View application was used (i.e. Baidu, Google, Naver, Yandex);
 
-- Add tooltips to buttons informing the user of its basic functionality (i.e. "Bookmark", "Import", "Export", "Settings").
+- Add tooltips to buttons informing the user of their basic functionality (i.e. "Bookmark", "Import", "Export", "Settings").
 
 ### Semantics
 
