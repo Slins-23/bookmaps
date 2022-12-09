@@ -71,7 +71,13 @@ function setup_map_bookmark() {
 
         if (elm.attributes.role != undefined) {
           // Store last child of found element, which contains the coordinates
-          new_found = elm.children[elm.children.length - 1].children[1];
+
+          try {
+            new_found = elm.children[elm.children.length - 1].children[1];
+          } catch {
+            break;
+          }
+          
 
           if (new_found != undefined) {
             found = new_found;
@@ -90,7 +96,7 @@ function setup_map_bookmark() {
 
       // if (found == -1) {
       // if (found == -1) {
-      if (found.tagName != "BUTTON" || found.innerText == "") {
+      if (found == undefined || found.tagName != "BUTTON" || found.innerText == "") {
         let wait_time = 4000;
         let interval_wait = 50;
 
@@ -102,7 +108,13 @@ function setup_map_bookmark() {
 
             if (elm.attributes.role != undefined) {
               // Store last child of found element, which contains the coordinates
-              new_found = elm.children[elm.children.length - 1].children[1];
+
+              try {
+                new_found = elm.children[elm.children.length - 1].children[1];
+              } catch {
+                break;
+              }
+              
 
               if (new_found != undefined) {
                 found = new_found;
@@ -415,9 +427,9 @@ function setup_map_bookmark() {
 
   async function create_button() {
     // let placeholder_position = find_by_xpath(placeholder_position_xpath);
-    let placeholder_position = card.children[0];
+    let placeholder_position = card.children[1];
 
-    if (placeholder_position != -1 && placeholder_position.tagName == "SPAN") {
+    if (placeholder_position != undefined && placeholder_position.tagName == "SPAN") {
       let wrapper = document.createElement("div");
       wrapper.id = "flex-wrapper-ext";
       wrapper.style =
@@ -476,6 +488,8 @@ function setup_map_bookmark() {
       */
 
       wrapper.appendChild(button);
+
+      is_open = true;
     } /*else if (placeholder_position.length == 0) {
             alert('Error: Could not find placeholder position for button with class " GaSlwc-uhFGfc-WsjYwc-HiaYvf" or "GaSlwc-uhFGfc-WsjYwc-LwH6nd"')
         } else {
@@ -504,18 +518,15 @@ function setup_map_bookmark() {
     }
 
     if (
-      (found != -1 && found != null) &&
-      found.className.split(" ").length == 2 &&
+      found != -1 && found != null && found.children.length > 0 &&
       (window.location.href.length < 110 && (window.location.href.indexOf("y,") == -1 || window.location.href.indexOf("t/data=") == -1))
     ) {
 
       // Popup was not there and has just popped-up
       if (!is_open) {
         card = found;
-        create_button();
+        await create_button();
       }
-
-      is_open = true;
 
       let coordinates = await get_coordinates();
 
@@ -540,7 +551,7 @@ function setup_map_bookmark() {
       }
 
     } else if (
-      (found != -1 && found != null) &&
+      found != -1 && found != null &&
       found.className.split(" ").length == 1 &&
       (window.location.href.length < 110 && (window.location.href.indexOf("y,") == -1 || window.location.href.indexOf("t/data=") == -1))
     ) {

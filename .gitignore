@@ -31,3 +31,5 @@ coverage
 *.njsproj
 *.sln
 *.sw?
+
+2DO.txt
