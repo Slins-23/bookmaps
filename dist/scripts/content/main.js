@@ -43,16 +43,16 @@ function setup_map_bookmark() {
   // let last_coords = undefined;
 
   // Check if there are two classes in the classname, this means its open as well as xpath found
-  let open_card_classname = "U5xfxc Hqf5kd";
+  let open_card_classname = "Tc0rEd U5xfxc Hqf5kd";
   let open_card_xpath =
     "/html/body/div[3]/div[9]/div[23]/div[1]/div[2]/div[2]/div";
 
-  let placeholder_position_classname = "VanyFc";
+  let placeholder_position_classname = "";
   let placeholder_position_xpath =
     "/html/body/div[3]/div[9]/div[23]/div[1]/div[2]/div[2]/div/span";
 
-  let photo_classname = " BfRbx"
-  let photo_xpath = "/html/body/div[3]/div[9]/div[23]/div[1]/div[2]/div[2]/div/button[1]"
+  //let photo_classname = " BfRbx"
+  //let photo_xpath = "/html/body/div[3]/div[9]/div[23]/div[1]/div[2]/div[2]/div/button[1]"
 
   let found_classname = undefined;
   //let found_xpath = "/html/body/div[3]/div[9]/div[23]/div[1]/div[2]/div[2]/div/div[2]/button[2]"
@@ -71,6 +71,8 @@ function setup_map_bookmark() {
 
         if (elm.attributes.role != undefined) {
           // Store last child of found element, which contains the coordinates
+		  
+		  let new_found = undefined;
 
           try {
             new_found = elm.children[elm.children.length - 1].children[1];
@@ -108,6 +110,8 @@ function setup_map_bookmark() {
 
             if (elm.attributes.role != undefined) {
               // Store last child of found element, which contains the coordinates
+			  
+			  let new_found = undefined;
 
               try {
                 new_found = elm.children[elm.children.length - 1].children[1];
@@ -128,7 +132,7 @@ function setup_map_bookmark() {
           //found = card.getElementsByClassName('nGhxh-tv6Bve GaSlwc-uhFGfc-WsjYwc-zfKixb-UacCoe');
           // console.log(`running interval 1. left: ${wait_time}`);
 
-          if (found != undefined && found_className != undefined && found_className != "" && found.tagName == "BUTTON" && found.innerText != "") {
+          if (found != undefined && found_classname != undefined && found_classname != "" && found.tagName == "BUTTON" && found.innerText != "") {
             clearInterval(new_int);
             should_stop = true;
           } else if (wait_time == 0) {
@@ -327,7 +331,7 @@ function setup_map_bookmark() {
     let actual_coords = actual_coords_element.innerText;
 
     if (actual_coords == "") {
-      alert("Error: Could not load coordinates within 4 seconds");
+      //alert("Error: Could not load coordinates within 4 seconds");
       return undefined;
     }
 
@@ -427,7 +431,7 @@ function setup_map_bookmark() {
 
   async function create_button() {
     // let placeholder_position = find_by_xpath(placeholder_position_xpath);
-    let placeholder_position = card.children[1];
+    let placeholder_position = card.children[0];
 
     if (placeholder_position != undefined && placeholder_position.tagName == "SPAN") {
       let wrapper = document.createElement("div");
@@ -571,9 +575,12 @@ function setup_map_bookmark() {
       clearInterval(interval_id);
 
       // Removes the Star bookmark button if it has been created
+	  /*
       if (is_open) {
         delete_btn();
       }
+	  */
+	  // Button gets scraped automatically amidst the transition
 
       if (!streetview_is_setup) { maps_is_setup = false; setup_street_view_bookmark(); };
     }
@@ -593,16 +600,15 @@ function setup_street_view_bookmark() {
 
   // let last_coords = undefined;
 
-  let placeholder_position_classname = "gzhbId";
-  let placeholder_position_xpath =
-    "/html/body/div[3]/div[9]/div[12]/div[1]/div[2]";
+  //let placeholder_position_classname = "gzhbId";
+  //let placeholder_position_xpath = "/html/body/div[3]/div[9]/div[12]/div[1]/div";
 
   // let found_classname = "P9uzfd-titlecard V2ucA";
-  let found_classname = "C5SiJf V2ucA";
-  let found_xpath = "/html/body/div[3]/div[9]/div[12]/div[1]";
+  //let found_classname = "C5SiJf V2ucA";
+  //let found_xpath = "/html/body/div[3]/div[9]/div[12]/div[1]";
 
-  let divider_classname = "HXXPif noprint";
-  let divider_xpath = "/html/body/div[3]/div[9]/div[12]/div[1]/div[1]";
+  //let divider_classname = "Gt8Xw Hk4XGb";
+  //let divider_xpath = "/html/body/div[3]/div[9]/div[12]/div[1]/div/div[2]";
 
   console.log("setup_street_view_bookmark()");
   let interval_id = setInterval(run_routinely, interval);
@@ -760,17 +766,11 @@ function setup_street_view_bookmark() {
                 divider.remove();
             }
             */
-
-
-      if (placeholder_position.children[1] == undefined) {
-        // alert("Could not create bookmark button. 1. scripts/content/main.js:705")
-        return false;
-      }
-
-      if (placeholder_position.children[2] == undefined) {
-        // alert("Could not create bookmark button. 2. scripts/content/main.js:729")
-        return false;
-      }
+	  if (placeholder_position.children.length < 2) {
+		return false;
+	  }
+	  
+	  placeholder_position = placeholder_position.children[1];
 
       let divider = placeholder_position.children[1];
       divider.remove();
@@ -951,7 +951,7 @@ function setup_street_view_bookmark() {
       if (titlecard != null) {
         if (titlecard.children[0].attributes["role"] != undefined) {
           let to_be_found = titlecard.children[0];
-          if (to_be_found.children.length >= 3 && to_be_found.children[0].tagName == "BUTTON" && to_be_found.children[1].tagName == "DIV" && to_be_found.children[2].tagName == "DIV") {
+          if (to_be_found.children.length >= 2 && to_be_found.children[0].tagName == "BUTTON" && to_be_found.children[1].tagName == "DIV") {
             found = to_be_found;
           }
         }
