@@ -634,6 +634,7 @@ function setup_street_view_bookmark() {
     console.log(`GOTTEN: ${JSON.stringify(book)}`)
 
     let url = window.location.href;
+    url = url.split("?")[0]
     let fov = url.split(",")[3].replace("y", "")
 
     // Horizontal
@@ -836,6 +837,7 @@ function setup_street_view_bookmark() {
   }
 
   function get_details(current_url) {
+    current_url = current_url.split("?")[0]
     let id = "";
     let before_id = "";
     let after_id = "";
