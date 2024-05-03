@@ -952,7 +952,7 @@ function setup_street_view_bookmark() {
 
       if (titlecard != null) {
         if (titlecard.children[0].attributes["role"] != undefined) {
-          let to_be_found = titlecard.children[0];
+          let to_be_found = titlecard.children[0].children[0];
           if (to_be_found.children.length >= 2 && to_be_found.children[0].tagName == "BUTTON" && to_be_found.children[1].tagName == "DIV") {
             found = to_be_found;
           }
