@@ -113,6 +113,10 @@ You can bookmark a location from its Google Maps/Street View URL or its coordina
 
 In the modal that opened up, you can input the Google Maps/Street View URL or its coordinates, then click `ADD` to bookmark it. If trying to add by coordinates, you have to input the latitude and longitude, respectively, separated by a comma or whitespace.
 
+Once a location is saved, you can find it by clicking through the location tree to find it, at which point each saved location will be stored as a card with the same thumbnail from when it was saved (unavailable if the relevant information is provided - namely adding a location based on coordinates only through the extension page). You can click the card to go to the same place, and same camera parameters if given.
+
+![final_screen](https://github.com/user-attachments/assets/57a761df-a579-4dc0-a518-5c2f8c09b3b8)
+
 ### Removing bookmarks in the extension page
 
 You can remove a specific bookmark or all children bookmarks (bookmarks inside a given location) by hovering over the card and clicking the "X" icon in the top-right corner. If the card clicked has children, a prompt will pop up asking whether you want to proceed while showing you how many bookmarks will be removed.
